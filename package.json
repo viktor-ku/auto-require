@@ -1,0 +1,21 @@
+{
+  "name": "auto-require",
+  "version": "1.0.2",
+  "description": "No need to require any packages now",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha",
+    "build": "./node_modules/.bin/coffee -bc ./index.coffee",
+    "dev": "./node_modules/.bin/coffee -wbc ./index.coffee",
+    "clean": "rm -rf ./index.js"
+  },
+  "author": "viktor.konsta",
+  "license": "MIT",
+  "keywords": "auto, require, package",
+  "dependencies": {
+    "lodash": "^3.10.1"
+  },
+  "devDependencies": {
+    "coffee-script": "^1.10.0"
+  }
+}
