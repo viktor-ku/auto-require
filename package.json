@@ -1,6 +1,6 @@
 {
   "name": "auto-require",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "No need to require any packages now",
   "main": "index.js",
   "scripts": {
@@ -13,7 +13,7 @@
   },
   "author": "viktor.konsta",
   "license": "MIT",
-  "keywords": "auto, require, package",
+  "keywords": "auto, require, package, auto-require, fast",
   "dependencies": {
     "lodash": "^3.10.1"
   },
