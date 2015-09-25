@@ -4,24 +4,32 @@ _ = require 'lodash'
 
 makePackagesName = (files) ->
 	packages = []
-	for file in files
-		file = file.split '-'
-		if file.length > 1 and file[0].match 'gulp'
-			packages.push file[1]
-		else if file.length > 1 and not file[0].match 'gulp'
-			packages.push "#{file[0]}#{file[1][0].toUpperCase()}#{file[1][1...]}"
-		else if file.length is 1
-			packages.push file[0]
+	one = (arr) -> if arr.length is 1 then yes
+	two = (arr) -> if arr.length is 2 then yes
+	three = (arr) -> if arr.length is 3 then yes
+	buildTool = (arr) -> if arr[0] is 'gulp' or arr[0] is 'grunt' then yes
+	for part in files
+		part = part.split '-'
+		if one part
+			packages.push part[0]
+		else if ((one part) or (two part)) and buildTool part
+			packages.push part[1]
+		else if (three part) and buildTool part
+			packages.push "#{part[1]}#{part[2][0].toUpperCase()}#{part[2][1...]}"
+		else if (two part) and not buildTool part
+			packages.push "#{part[0]}#{part[1][0].toUpperCase()}#{part[1][1...]}"
+		else if (three part) and not buildTool part
+			packages.push "#{part[0]}#{part[1][0].toUpperCase()}#{part[1][1...]}#{part[2][0].toUpperCase()}#{part[2][1...]}"
 	return packages
 
-makeNodeModulesName = (files) -> 
-	require file for file in files
+makeNodeModulesName = (files) -> require file for file in files
 
-makeCollector = (cols, rows) -> 
-	_.zipObject cols, rows
+makeCollection = (a, b) -> _.zipObject a, b
 
 quest = fs.readdirSync('./node_modules')[1...]
 
 packagesName = makePackagesName quest
 nodeModulesName = makeNodeModulesName quest
-module.exports = makeCollector packagesName, nodeModulesName
+
+module.exports = makeCollection packagesName, nodeModulesName
+module.exports.makePackagesName = makePackagesName
