@@ -1,6 +1,6 @@
 
 fs = require 'fs'
-_ = require 'lodash'
+zipObject = require 'lodash.zipobject'
 
 makePackagesName = (files) ->
 	packages = []
@@ -24,7 +24,7 @@ makePackagesName = (files) ->
 
 makeNodeModulesName = (files) -> require file for file in files
 
-makeCollection = (a, b) -> _.zipObject a, b
+makeCollection = (a, b) -> zipObject a, b
 
 quest = fs.readdirSync('./node_modules')[1...]
 
