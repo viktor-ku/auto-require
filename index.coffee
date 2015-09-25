@@ -1,12 +1,10 @@
-fs = require 'fs'
-zipObject = require 'lodash.zipobject'
-
 class Require
 	constructor: ->		
-		@quest = fs.readdirSync('./node_modules')[1...]
-		@packagesName = @makePackagesName @quest
-		@nodeModulesName = @makeNodeModulesName @quest
-		@makeCollection @packagesName, @nodeModulesName
+		fs = require 'fs'
+		quest = fs.readdirSync('./node_modules')[1...]
+		packagesName = @makePackagesName quest
+		nodeModulesName = @makeNodeModulesName quest
+		@makeCollection packagesName, nodeModulesName
 
 	makePackagesName: (files) ->
 		packages = []
@@ -32,6 +30,7 @@ class Require
 		require file for file in files
 
 	makeCollection: (a, b) ->
+		zipObject = require 'lodash.zipobject'
 		@collection = zipObject a, b
 
 $ = new Require
