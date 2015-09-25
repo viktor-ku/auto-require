@@ -1,6 +1,6 @@
 {
   "name": "auto-require",
-  "version": "1.1.3",
+  "version": "1.1.4",
   "description": "No need to require any packages now",
   "main": "index.js",
   "scripts": {
@@ -11,8 +11,15 @@
     "deploy": "git push origin master & npm publish",
     "start": "node ./index.js"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ViktorKonsta/auto-require.git"
+  },
   "author": "viktor.konsta",
   "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ViktorKonsta/auto-require/issues"
+  },
   "keywords": "auto, require, package, auto-require, fast",
   "dependencies": {
     "lodash": "^3.10.1"
@@ -20,5 +27,6 @@
   "devDependencies": {
     "chai": "^3.3.0",
     "coffee-script": "^1.10.0"
-  }
+  },
+  "homepage": "https://github.com/ViktorKonsta/auto-require#readme"
 }
