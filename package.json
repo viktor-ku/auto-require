@@ -1,6 +1,6 @@
 {
   "name": "auto-require",
-  "version": "1.1.4",
+  "version": "1.2.0",
   "description": "No need to require any packages now",
   "main": "index.js",
   "scripts": {
@@ -8,7 +8,7 @@
     "build": "./node_modules/.bin/coffee -bc ./index.coffee",
     "dev": "./node_modules/.bin/coffee -wbc ./index.coffee",
     "clean": "rm -rf ./index.js",
-    "deploy": "git push origin master && npm publish",
+    "deploy": "npm build && git push origin master && npm publish",
     "start": "node ./index.js"
   },
   "repository": {
@@ -20,7 +20,7 @@
   "bugs": {
     "url": "https://github.com/ViktorKonsta/auto-require/issues"
   },
-  "keywords": "auto, require, package, auto-require, fast",
+  "keywords": "auto, require, package, auto-require, fast, automaticaly",
   "dependencies": {
     "lodash.zipobject": "^3.0.0"
   },
