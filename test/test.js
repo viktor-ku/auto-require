@@ -31,4 +31,16 @@ describe("Auto-require", function() {
 	it('grunt-closure-tools is accesible via $.closureTools', function() {
 		assert.deepEqual($.closureTools, require('grunt-closure-tools'));
 	});
+	it('broccoli is accesible via $.broccoli', function() {
+		assert.deepEqual($.broccoli, require('broccoli'));
+	});
+	it('broccoli-sass is accesible via $.sass', function() {
+		assert.deepEqual($.sass, require('broccoli-sass'));
+	});
+	it('broccoli-react-caching is accesible via $.reactCaching', function() {
+		assert.deepEqual($.reactCaching, require('broccoli-react-caching'));
+	});
+	it('broccoli-use-strict-remover is accesible via $.useStrictRemover', function() {
+		assert.deepEqual($.useStrictRemover, require('broccoli-use-strict-remover'));
+	});
 });

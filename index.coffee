@@ -17,16 +17,20 @@ class Require
 			part = part.split '-'
 			if one part
 				packages.push part[0]
-			else if (two part) and buildTool part
-				packages.push part[1]
-			else if (three part) and buildTool part
-				packages.push "#{part[1]}#{part[2][0].toUpperCase()}#{part[2][1...]}"
-			else if (four part) and buildTool part
-				packages.push "#{part[0]}#{part[1][0].toUpperCase()}#{part[1][1...]}#{part[2][0].toUpperCase()}#{part[2][1...]}#{part[3][0].toUpperCase()}#{part[3][1...]}"				
-			else if (two part) and not buildTool part
-				packages.push "#{part[0]}#{part[1][0].toUpperCase()}#{part[1][1...]}"
-			else if (three part) and not buildTool part
-				packages.push "#{part[0]}#{part[1][0].toUpperCase()}#{part[1][1...]}#{part[2][0].toUpperCase()}#{part[2][1...]}"
+			else if buildTool part
+				if two part
+					packages.push part[1]
+				else if three part
+					packages.push "#{part[1]}#{part[2][0].toUpperCase()}#{part[2][1...]}"
+				else if four part
+					packages.push "#{part[1]}#{part[2][0].toUpperCase()}#{part[2][1...]}#{part[3][0].toUpperCase()}#{part[3][1...]}"				
+			else if not buildTool part
+				if two part
+					packages.push "#{part[0]}#{part[1][0].toUpperCase()}#{part[1][1...]}"
+				else if three part
+					packages.push "#{part[0]}#{part[1][0].toUpperCase()}#{part[1][1...]}#{part[2][0].toUpperCase()}#{part[2][1...]}"
+				else if four part
+					packages.push "#{part[0]}#{part[1][0].toUpperCase()}#{part[1][1...]}#{part[2][0].toUpperCase()}#{part[2][1...]}#{part[3][0].toUpperCase()}#{part[3][1...]}"				
 		return packages
 
 	makeNodeModulesName: (files) -> 

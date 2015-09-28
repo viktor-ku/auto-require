@@ -44,16 +44,22 @@ Require = (function() {
       part = part.split('-');
       if (one(part)) {
         packages.push(part[0]);
-      } else if ((two(part)) && buildTool(part)) {
-        packages.push(part[1]);
-      } else if ((three(part)) && buildTool(part)) {
-        packages.push("" + part[1] + (part[2][0].toUpperCase()) + part[2].slice(1));
-      } else if ((four(part)) && buildTool(part)) {
-        packages.push("" + part[0] + (part[1][0].toUpperCase()) + part[1].slice(1) + (part[2][0].toUpperCase()) + part[2].slice(1) + (part[3][0].toUpperCase()) + part[3].slice(1));
-      } else if ((two(part)) && !buildTool(part)) {
-        packages.push("" + part[0] + (part[1][0].toUpperCase()) + part[1].slice(1));
-      } else if ((three(part)) && !buildTool(part)) {
-        packages.push("" + part[0] + (part[1][0].toUpperCase()) + part[1].slice(1) + (part[2][0].toUpperCase()) + part[2].slice(1));
+      } else if (buildTool(part)) {
+        if (two(part)) {
+          packages.push(part[1]);
+        } else if (three(part)) {
+          packages.push("" + part[1] + (part[2][0].toUpperCase()) + part[2].slice(1));
+        } else if (four(part)) {
+          packages.push("" + part[1] + (part[2][0].toUpperCase()) + part[2].slice(1) + (part[3][0].toUpperCase()) + part[3].slice(1));
+        }
+      } else if (!buildTool(part)) {
+        if (two(part)) {
+          packages.push("" + part[0] + (part[1][0].toUpperCase()) + part[1].slice(1));
+        } else if (three(part)) {
+          packages.push("" + part[0] + (part[1][0].toUpperCase()) + part[1].slice(1) + (part[2][0].toUpperCase()) + part[2].slice(1));
+        } else if (four(part)) {
+          packages.push("" + part[0] + (part[1][0].toUpperCase()) + part[1].slice(1) + (part[2][0].toUpperCase()) + part[2].slice(1) + (part[3][0].toUpperCase()) + part[3].slice(1));
+        }
       }
     }
     return packages;
