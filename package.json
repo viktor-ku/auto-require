@@ -26,6 +26,10 @@
   },
   "devDependencies": {
     "andyet-express-auth": "^0.4.1",
+    "broccoli": "^0.16.8",
+    "broccoli-react-caching": "^0.1.1",
+    "broccoli-sass": "^0.6.7",
+    "broccoli-use-strict-remover": "^1.1.0",
     "browser-sync": "^2.9.6",
     "chai": "^3.3.0",
     "coffee-script": "^1.10.0",

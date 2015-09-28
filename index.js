@@ -12,7 +12,7 @@ Require = (function() {
   }
 
   Require.prototype.makePackagesName = function(files) {
-    var buildTool, i, len, one, packages, part, three, two;
+    var buildTool, four, i, len, one, packages, part, three, two;
     packages = [];
     one = function(arr) {
       if (arr.length === 1) {
@@ -29,8 +29,13 @@ Require = (function() {
         return true;
       }
     };
+    four = function(arr) {
+      if (arr.length === 4) {
+        return true;
+      }
+    };
     buildTool = function(arr) {
-      if (arr[0] === 'gulp' || arr[0] === 'grunt') {
+      if (arr[0] === 'gulp' || arr[0] === 'grunt' || arr[0] === 'broccoli') {
         return true;
       }
     };
@@ -39,10 +44,12 @@ Require = (function() {
       part = part.split('-');
       if (one(part)) {
         packages.push(part[0]);
-      } else if (((one(part)) || (two(part))) && buildTool(part)) {
+      } else if ((two(part)) && buildTool(part)) {
         packages.push(part[1]);
       } else if ((three(part)) && buildTool(part)) {
         packages.push("" + part[1] + (part[2][0].toUpperCase()) + part[2].slice(1));
+      } else if ((four(part)) && buildTool(part)) {
+        packages.push("" + part[0] + (part[1][0].toUpperCase()) + part[1].slice(1) + (part[2][0].toUpperCase()) + part[2].slice(1) + (part[3][0].toUpperCase()) + part[3].slice(1));
       } else if ((two(part)) && !buildTool(part)) {
         packages.push("" + part[0] + (part[1][0].toUpperCase()) + part[1].slice(1));
       } else if ((three(part)) && !buildTool(part)) {
