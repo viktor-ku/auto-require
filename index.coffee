@@ -14,6 +14,7 @@ class Require
 		four = (arr) -> 	if arr.length is 4 then yes
 		five = (arr) -> 	if arr.length is 5 then yes
 		buildTool = (arr) -> if arr[0] is 'gulp' or arr[0] is 'grunt' or arr[0] is 'broccoli' then yes
+		concat = (part) -> part[0].toUpperCase() + part[1...]
 		for part in files
 			part = part.split '-'
 			if one part
@@ -22,18 +23,20 @@ class Require
 				if two part
 					packages.push part[1]
 				else if three part
-					packages.push "#{part[1]}#{part[2][0].toUpperCase()}#{part[2][1...]}"
+					packages.push part[1] + (concat part[2])
 				else if four part
-					packages.push "#{part[1]}#{part[2][0].toUpperCase()}#{part[2][1...]}#{part[3][0].toUpperCase()}#{part[3][1...]}"				
+					packages.push part[1] + (concat part[2]) + (concat part[3])
 				else if five part
-					packages.push "#{part[1]}#{part[2][0].toUpperCase()}#{part[2][1...]}#{part[3][0].toUpperCase()}#{part[3][1...]}#{part[4][0].toUpperCase()}#{part[4][1...]}"
+					packages.push part[1] + (concat part[2]) + (concat part[3]) + (concat part[4])
 			else if not buildTool part
 				if two part
-					packages.push "#{part[0]}#{part[1][0].toUpperCase()}#{part[1][1...]}"
+					packages.push part[0] + (concat part[1])
 				else if three part
-					packages.push "#{part[0]}#{part[1][0].toUpperCase()}#{part[1][1...]}#{part[2][0].toUpperCase()}#{part[2][1...]}"
+					packages.push part[0] + (concat part[1]) + (concat part[2])
 				else if four part
-					packages.push "#{part[0]}#{part[1][0].toUpperCase()}#{part[1][1...]}#{part[2][0].toUpperCase()}#{part[2][1...]}#{part[3][0].toUpperCase()}#{part[3][1...]}"				
+					packages.push part[0] + (concat part[1]) + (concat part[2]) + (concat part[3])				
+				else if five part
+					packages.push part[0] + (concat part[1]) + (concat part[2]) + (concat part[3]) + (concat part[4])				
 		return packages
 
 	makeNodeModulesName: (files) -> 

@@ -12,7 +12,7 @@ Require = (function() {
   }
 
   Require.prototype.makePackagesName = function(files) {
-    var buildTool, five, four, i, len, one, packages, part, three, two;
+    var buildTool, concat, five, four, i, len, one, packages, part, three, two;
     packages = [];
     one = function(arr) {
       if (arr.length === 1) {
@@ -44,6 +44,9 @@ Require = (function() {
         return true;
       }
     };
+    concat = function(part) {
+      return part[0].toUpperCase() + part.slice(1);
+    };
     for (i = 0, len = files.length; i < len; i++) {
       part = files[i];
       part = part.split('-');
@@ -53,19 +56,21 @@ Require = (function() {
         if (two(part)) {
           packages.push(part[1]);
         } else if (three(part)) {
-          packages.push("" + part[1] + (part[2][0].toUpperCase()) + part[2].slice(1));
+          packages.push(part[1] + (concat(part[2])));
         } else if (four(part)) {
-          packages.push("" + part[1] + (part[2][0].toUpperCase()) + part[2].slice(1) + (part[3][0].toUpperCase()) + part[3].slice(1));
+          packages.push(part[1] + (concat(part[2])) + (concat(part[3])));
         } else if (five(part)) {
-          packages.push("" + part[1] + (part[2][0].toUpperCase()) + part[2].slice(1) + (part[3][0].toUpperCase()) + part[3].slice(1) + (part[4][0].toUpperCase()) + part[4].slice(1));
+          packages.push(part[1] + (concat(part[2])) + (concat(part[3])) + (concat(part[4])));
         }
       } else if (!buildTool(part)) {
         if (two(part)) {
-          packages.push("" + part[0] + (part[1][0].toUpperCase()) + part[1].slice(1));
+          packages.push(part[0] + (concat(part[1])));
         } else if (three(part)) {
-          packages.push("" + part[0] + (part[1][0].toUpperCase()) + part[1].slice(1) + (part[2][0].toUpperCase()) + part[2].slice(1));
+          packages.push(part[0] + (concat(part[1])) + (concat(part[2])));
         } else if (four(part)) {
-          packages.push("" + part[0] + (part[1][0].toUpperCase()) + part[1].slice(1) + (part[2][0].toUpperCase()) + part[2].slice(1) + (part[3][0].toUpperCase()) + part[3].slice(1));
+          packages.push(part[0] + (concat(part[1])) + (concat(part[2])) + (concat(part[3])));
+        } else if (five(part)) {
+          packages.push(part[0] + (concat(part[1])) + (concat(part[2])) + (concat(part[3])) + (concat(part[4])));
         }
       }
     }
