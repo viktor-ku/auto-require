@@ -12,7 +12,7 @@ Require = (function() {
   }
 
   Require.prototype.makePackagesName = function(files) {
-    var buildTool, concat, five, four, i, len, one, packages, part, three, two;
+    var concat, exclusive, five, four, i, len, one, packages, part, three, two;
     packages = [];
     one = function(arr) {
       if (arr.length === 1) {
@@ -39,8 +39,8 @@ Require = (function() {
         return true;
       }
     };
-    buildTool = function(arr) {
-      if (arr[0] === 'gulp' || arr[0] === 'grunt' || arr[0] === 'broccoli') {
+    exclusive = function(arr) {
+      if (arr[0] === 'gulp' || arr[0] === 'grunt' || arr[0] === 'broccoli' || arr[0] === 'jquery') {
         return true;
       }
     };
@@ -52,7 +52,7 @@ Require = (function() {
       part = part.split('-');
       if (one(part)) {
         packages.push(part[0]);
-      } else if (buildTool(part)) {
+      } else if (exclusive(part)) {
         if (two(part)) {
           packages.push(part[1]);
         } else if (three(part)) {
@@ -62,7 +62,7 @@ Require = (function() {
         } else if (five(part)) {
           packages.push(part[1] + (concat(part[2])) + (concat(part[3])) + (concat(part[4])));
         }
-      } else if (!buildTool(part)) {
+      } else if (!exclusive(part)) {
         if (two(part)) {
           packages.push(part[0] + (concat(part[1])));
         } else if (three(part)) {
