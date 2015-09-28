@@ -12,7 +12,7 @@ Require = (function() {
   }
 
   Require.prototype.makePackagesName = function(files) {
-    var buildTool, four, i, len, one, packages, part, three, two;
+    var buildTool, five, four, i, len, one, packages, part, three, two;
     packages = [];
     one = function(arr) {
       if (arr.length === 1) {
@@ -34,6 +34,11 @@ Require = (function() {
         return true;
       }
     };
+    five = function(arr) {
+      if (arr.length === 5) {
+        return true;
+      }
+    };
     buildTool = function(arr) {
       if (arr[0] === 'gulp' || arr[0] === 'grunt' || arr[0] === 'broccoli') {
         return true;
@@ -51,6 +56,8 @@ Require = (function() {
           packages.push("" + part[1] + (part[2][0].toUpperCase()) + part[2].slice(1));
         } else if (four(part)) {
           packages.push("" + part[1] + (part[2][0].toUpperCase()) + part[2].slice(1) + (part[3][0].toUpperCase()) + part[3].slice(1));
+        } else if (five(part)) {
+          packages.push("" + part[1] + (part[2][0].toUpperCase()) + part[2].slice(1) + (part[3][0].toUpperCase()) + part[3].slice(1) + (part[4][0].toUpperCase()) + part[4].slice(1));
         }
       } else if (!buildTool(part)) {
         if (two(part)) {

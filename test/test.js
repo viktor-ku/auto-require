@@ -43,4 +43,7 @@ describe("Auto-require", function() {
 	it('broccoli-use-strict-remover is accesible via $.useStrictRemover', function() {
 		assert.deepEqual($.useStrictRemover, require('broccoli-use-strict-remover'));
 	});
+	it('broccoli-file-contents-to-json is accesible via $.fileContentsToJson', function() {
+		assert.deepEqual($.fileContentsToJson, require('broccoli-file-contents-to-json'));
+	});
 });

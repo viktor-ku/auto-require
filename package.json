@@ -27,6 +27,7 @@
   "devDependencies": {
     "andyet-express-auth": "^0.4.1",
     "broccoli": "^0.16.8",
+    "broccoli-file-contents-to-json": "^0.2.1",
     "broccoli-react-caching": "^0.1.1",
     "broccoli-sass": "^0.6.7",
     "broccoli-use-strict-remover": "^1.1.0",
