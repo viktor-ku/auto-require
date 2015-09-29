@@ -1,6 +1,4 @@
 # auto-require
-![build success](https://img.shields.io/teamcity/codebetter/bt428.svg "build success")
-![license MIT](https://img.shields.io/npm/l/express.svg "license MIT")
 ![dependencies](https://img.shields.io/badge/dependencies-up--to--date-green.svg "dependencies")
 ![tests passed](https://img.shields.io/badge/tests-17%2F17-green.svg "tests passed")
 
