@@ -15,36 +15,24 @@ class Require
 	makePackagesName: (files) ->
 		packages = []
 		one = (arr) -> 		if arr.length is 1 then yes
-		two = (arr) -> 		if arr.length is 2 then yes
-		three = (arr) -> 	if arr.length is 3 then yes
-		four = (arr) -> 	if arr.length is 4 then yes
-		five = (arr) -> 	if arr.length is 5 then yes
-		exclusive = (arr) -> 
+		exclusive = (arr) ->
 			exclusiveList = ['gulp', 'grunt', 'broccoli', 'jquery']
 			if exclusiveList.join('').match(arr[0]) then yes
 		concat = (part) -> part[0].toUpperCase() + part[1...]
-		for part in files
-			part = part.split '-'
+		concatenation = (arr) ->
+			name = ''
+			for el, i in arr
+				if i is 0 then name += el
+				else name += concat el
+			return name
+		for file in files
+			part = file.split '-'
 			if one part
 				packages.push part[0]
 			else if exclusive part
-				if two part
-					packages.push part[1]
-				else if three part
-					packages.push part[1] + (concat part[2])
-				else if four part
-					packages.push part[1] + (concat part[2]) + (concat part[3])
-				else if five part
-					packages.push part[1] + (concat part[2]) + (concat part[3]) + (concat part[4])
+				packages.push concatenation part[1...]
 			else if not exclusive part
-				if two part
-					packages.push part[0] + (concat part[1])
-				else if three part
-					packages.push part[0] + (concat part[1]) + (concat part[2])
-				else if four part
-					packages.push part[0] + (concat part[1]) + (concat part[2]) + (concat part[3])				
-				else if five part
-					packages.push part[0] + (concat part[1]) + (concat part[2]) + (concat part[3]) + (concat part[4])				
+				packages.push concatenation part
 		return packages
 
 module.exports = do ->
