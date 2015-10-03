@@ -42,9 +42,7 @@ For example we have `gulp-jade` module. How we can access it?
 Answer is as simple as it even can be - via `$.jade`.  
 As you can see the first part of the `gulp-jade` has been cut.  
 
-This tool supports *gulp*, *grunt*, *broccoli* and *jquery*.  
-It also supports until five parts in the package name  
-(**e.x. broccoli-file-contents-to-json**)
+This tool supports *gulp*, *grunt*, *broccoli* and *jquery*.
 
 ### Other access examples
 
