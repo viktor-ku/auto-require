@@ -8,7 +8,7 @@
     "build": "./node_modules/.bin/coffee -bc ./index.coffee",
     "dev": "./node_modules/.bin/coffee -wbc ./index.coffee",
     "clean": "rm -rf ./index.js",
-    "deploy": "npm build && git push origin master && npm publish",
+    "deploy": "npm build && git push origin master & npm publish",
     "start": "node ./index.js"
   },
   "repository": {
