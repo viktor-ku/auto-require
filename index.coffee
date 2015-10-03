@@ -37,8 +37,9 @@ class Require
 
 module.exports = do ->
 	fs = require 'fs'
-	allModules = fs.readdirSync('./node_modules')[1...]
-	all = new Require allModules 
+	node_modules = fs.readdirSync('./node_modules')
+	if node_modules.join('').match '.bin' then all = new Require node_modules[1...]
+	else all = new Require node_modules
 	all.collection
 
 module.exports.only = (params) -> 
