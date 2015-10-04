@@ -1,6 +1,6 @@
 {
   "name": "auto-require",
-  "version": "1.4.1",
+  "version": "1.4.2",
   "description": "No need to require any packages now",
   "main": "index.js",
   "scripts": {
