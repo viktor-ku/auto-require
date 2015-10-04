@@ -1,6 +1,6 @@
 {
   "name": "auto-require",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "description": "No need to require any packages now",
   "main": "index.js",
   "scripts": {
@@ -8,7 +8,7 @@
     "build": "./node_modules/.bin/coffee -bc ./index.coffee",
     "dev": "./node_modules/.bin/coffee -wbc ./index.coffee",
     "clean": "rm -rf ./index.js",
-    "deploy": "npm build && git push origin master & npm publish",
+    "deploy": "npm test && npm build && git push origin master & npm publish",
     "start": "node ./index.js"
   },
   "repository": {
