@@ -37,7 +37,7 @@ class Require
 
 module.exports = do ->
 	fs = require 'fs'
-	node_modules = fs.readdirSync "#{__dirname}/node_modules/"
+	node_modules = fs.readdirSync "./node_modules/"
 
 	if node_modules.indexOf('.bin') >= 0
 		node_modules.splice node_modules.indexOf('.bin'), 1
