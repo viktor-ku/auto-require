@@ -1,3 +1,4 @@
+fs = require 'fs'
 zipObject = require 'lodash.zipobject'
 
 class Require
@@ -16,8 +17,8 @@ class Require
 		packages = []
 		one = (arr) -> if arr.length is 1 then yes
 		exclusive = (arr) ->
-			exclusiveList = ['gulp', 'grunt', 'broccoli', 'jquery']
-			if exclusiveList.join('').match(arr[0]) then yes
+			exclusiveList = /gulp|grunt|broccoli|jquery/g
+			if arr.join(' ').match(exclusiveList) then yes
 		concat = (part) -> part[0].toUpperCase() + part[1...]
 		concatenation = (arr) ->
 			name = ''
@@ -35,16 +36,13 @@ class Require
 				packages.push concatenation part
 		return packages
 
-module.exports = do ->
-	fs = require 'fs'
-	node_modules = fs.readdirSync "./node_modules/"
+module.exports = (only) ->
+	if only? and only isnt ''
+		modules = only
+	else
+		modules = fs.readdirSync "./node_modules/"
+		if modules.indexOf('.bin') >= 0
+			modules.splice modules.indexOf('.bin'), 1
 
-	if node_modules.indexOf('.bin') >= 0
-		node_modules.splice node_modules.indexOf('.bin'), 1
-
-	all = new Require node_modules
-	all.collection
-
-module.exports.only = (params) -> 
-	only = new Require params
-	only.collection
+	that = new Require modules
+	return that.collection

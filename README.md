@@ -1,18 +1,20 @@
 # auto-require
-![dependencies](https://img.shields.io/badge/dependencies-up--to--date-green.svg "dependencies")
-![tests passed](https://img.shields.io/badge/tests-17%2F17-green.svg "tests passed")
+![tests passed](https://img.shields.io/badge/tests-19%2F19-brightgreen.svg?style=flat-square "tests passed")
+![build success](https://img.shields.io/badge/build-success-brightgreen.svg?style=flat-square "build success")
 
-**It's the best way to automatically require your packages**
+## It's the best way to automatically require your packages
 
-### Install
+Checkout [changelog](changelog.md) also
+
+### install
 
 ```
 npm install --save auto-require
 ```
 
-### Quick start with gulp
-```javascript
-var $ = require('auto-require');
+### get into with gulp
+```js
+var $ = require('auto-require')();
 
 $.gulp.task('default', function() { 
 	$.gulp.src('src/*.jade')
@@ -39,10 +41,10 @@ Quick example
 No, you'll not need to write full module name.
 The first part of the module name will be cut in this case.    
 For example we have `gulp-jade` module. How we can access it?  
-Answer is as simple as it even can be - via `$.jade`.  
+Actually it's pretty straightforward - via `$.jade`.  
 As you can see the first part of the `gulp-jade` has been cut.  
 
-This tool supports *gulp*, *grunt*, *broccoli* and *jquery*.
+This tool works fine with *gulp*, *grunt*, *broccoli* and *jquery*.
 
 ### Other access examples
 
@@ -59,13 +61,11 @@ This tool supports *gulp*, *grunt*, *broccoli* and *jquery*.
 
 ### Limited access
 
-```javascript
+```js
 // specify only packages you need
 var need = ['gulp', 'gulp-stylus', 'gulp-plumber'];
-// use only() function to access only them
-var $ = require('auto-require').only(need);
+var $ = require('auto-require')(need);
 
-// use as you need
 $.gulp.task('stylus', function() {
 	$.gulp.src('styl/app.styl')
 		.pipe($.plumber())

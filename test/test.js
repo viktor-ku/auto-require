@@ -3,7 +3,7 @@ var assert = require('chai').assert;
 
 describe("Auto-require", function() {
 	describe('Testing accesibility', function() {
-		var $ = require('../index.js');
+		var $ = require('../dist/index.js')();
 		it('express is accesible via $.express', function() {
 			assert.deepEqual($.express, require('express'));
 		});
@@ -46,9 +46,12 @@ describe("Auto-require", function() {
 		it('broccoli-file-contents-to-json is accesible via $.fileContentsToJson', function() {
 			assert.deepEqual($.fileContentsToJson, require('broccoli-file-contents-to-json'));
 		});	
+		it('run-sequence is accesible via $.runSequence', function() {
+			assert.deepEqual($.runSequence, require('run-sequence'));
+		});	
 	});
 	describe('Testing only() function', function() {
-		var $ = require('../index.js').only(['gulp', 'gulp-plumber', 'gulp-inline-css']);
+		var $ = require('../dist/index.js')(['gulp', 'gulp-plumber', 'gulp-inline-css']);
 		it('gulp is accesible via $.gulp', function() {
 			assert.deepEqual($.gulp, require('gulp'));
 		});
@@ -58,5 +61,8 @@ describe("Auto-require", function() {
 		it('gulp-inline-css is accesible via $.inlineCss', function() {
 			assert.deepEqual($.inlineCss, require('gulp-inline-css'));
 		});
+		it('run-sequence is undefined', function() {
+			assert.equal($.runSequence, undefined);
+		});	
 	});
 });
