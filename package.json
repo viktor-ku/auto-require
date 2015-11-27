@@ -22,7 +22,8 @@
   },
   "keywords": "auto, require, auto-require, fast, automaticaly, easy, automatic, loader, auto-loader, module-loader, module",
   "dependencies": {
-    "lodash.zipobject": "^3.0.0"
+    "chalk": "^1.1.1",
+    "lodash": "^3.10.1"
   },
   "devDependencies": {
     "andyet-express-auth": "^0.4.1",
