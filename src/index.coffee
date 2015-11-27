@@ -1,8 +1,11 @@
 fs = require 'fs'
+path = require 'path'
 zipObject = require 'lodash.zipobject'
+valid = require './valid'
+Array::drop = require './deleteFromArray'
 
 class Require
-	constructor: (packages) ->
+	constructor: (packages, @supportList = /gulp|grunt|broccoli/g) ->
 		packagesName = @makePackagesName packages
 		nodeModulesName = @makeNodeModulesName packages
 		@makeCollection packagesName, nodeModulesName
@@ -17,8 +20,7 @@ class Require
 		packages = []
 		one = (arr) -> if arr.length is 1 then yes
 		exclusive = (arr) ->
-			exclusiveList = /gulp|grunt|broccoli|jquery/g
-			if arr.join(' ').match(exclusiveList) then yes
+			if arr.join(';').match(@supportList) then yes
 		concat = (part) -> part[0].toUpperCase() + part[1...]
 		concatenation = (arr) ->
 			name = ''
@@ -36,13 +38,25 @@ class Require
 				packages.push concatenation part
 		return packages
 
-module.exports = (only) ->
-	if only? and only isnt ''
-		modules = only
-	else
-		modules = fs.readdirSync "./node_modules/"
-		if modules.indexOf('.bin') >= 0
-			modules.splice modules.indexOf('.bin'), 1
+module.exports = (options) ->
 
-	that = new Require modules
-	return that.collection
+	modules = []
+
+	if valid options.search
+		{search} = options
+		if typeof search is 'string' then search = [search]
+	else
+		search = ['./node_modules/']
+
+	folders = (fs.readdirSync path.resolve one for one in search)
+
+	modules = zipObject search, folders
+
+	for k, v of modules
+		v.drop '.bin'
+		v.drop 'auto-require'
+
+	console.log modules
+
+module.exports
+	search: ['./node_modules/', './test/my-modules/']

@@ -51,7 +51,9 @@ describe("Auto-require", function() {
 		});	
 	});
 	describe('Testing only() function', function() {
-		var $ = require('../dist/index.js')(['gulp', 'gulp-plumber', 'gulp-inline-css']);
+		var $ = require('../dist/index.js')({
+			only: ['gulp', 'gulp-plumber', 'gulp-inline-css']
+		});
 		it('gulp is accesible via $.gulp', function() {
 			assert.deepEqual($.gulp, require('gulp'));
 		});
@@ -64,5 +66,38 @@ describe("Auto-require", function() {
 		it('run-sequence is undefined', function() {
 			assert.equal($.runSequence, undefined);
 		});	
+	});
+	describe('Testing without() function', function() {
+		var $ = require('../dist/index.js')({
+			without: ['gulp-inline-css']
+		});
+		it('gulp is accesible via $.gulp', function() {
+			assert.deepEqual($.gulp, require('gulp'));
+		});
+		it('gulp-inline-css is undefined', function() {
+			assert.equal($.inlineCss, undefined);
+		});	
+	});
+	describe('Testing search() function without node_modules', function() {
+		var $ = require('../dist/index.js')({
+			search: ['./my-modules/']
+		});
+		it('super-smile is accesible via $.superSmile', function() {
+			assert.deepEqual($.superSmile, require('super-smile'));
+		});
+		it('gulp is undefined', function() {
+			assert.equal($.gulp, undefined);
+		});
+	});
+	describe('Testing search() function with node_modules', function() {
+		var $ = require('../dist/index.js')({
+			search: ['./my-modules/', '../node_modules/']
+		});
+		it('super-smile is accesible via $.superSmile', function() {
+			assert.deepEqual($.superSmile, require('./my-modules/super-smile'));
+		});
+		it('gulp is accesible via $.gulp', function() {
+			assert.deepEqual($.gulp, require('gulp'));
+		});
 	});
 });

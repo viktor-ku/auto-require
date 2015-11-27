@@ -5,8 +5,8 @@
   "main": "dist/index.js",
   "scripts": {
     "test": "mocha",
-    "build": "coffee -bco ./dist/ ./src/index.coffee",
-    "dev": "coffee -bwco ./dist/ ./src/index.coffee",
+    "build": "coffee -bco ./dist/ ./src/*.coffee",
+    "dev": "coffee -bwco ./dist/ ./src/*.coffee",
     "jsbeautify": "js-beautify ./dist/index.js --outfile ./dist/index.js --config ./jsbeautify.json",
     "deploy": "npm build && npm run jsbeautify && npm test && git push origin master & npm publish",
     "start": "node ./dist/index.js"
