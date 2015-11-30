@@ -16,12 +16,11 @@ module.exports = (options) ->
 
 	folders = (fs.readdirSync path.resolve one for one in search)
 
-	if valid options.without
-		{without} = options
-
 	if valid options.only
-		without = no
 		{only} = options
+	else if not valid options.only
+		if valid options.without
+			{without} = options
 
 	modules = zipObject search, folders
 
