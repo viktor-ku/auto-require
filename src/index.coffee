@@ -10,11 +10,12 @@ Array::drop = require './deleteFromArray'
 module.exports = (options) ->
 
 	folders = []
+	only = null
+	without = null
+	search = ['./node_modules/']
 
 	if valid options.search
 		{search} = options
-	else
-		search = ['./node_modules/']
 
 	if valid options.only
 		{only} = options
@@ -25,15 +26,19 @@ module.exports = (options) ->
 	for onePath in search
 		folders.push fs.readdirSync path.resolve onePath
 
-	modules = zipObject search, folders
+	for moduleGroups in folders
+		if without
+			for one in without
+				moduleGroups.drop one
+		for oneModule in moduleGroups
+			if oneModule is '.bin' or oneModule is 'auto-require'
+				moduleGroups.drop oneModule
 
-	for k, v of modules
-		v.drop '.bin'
-		v.drop 'auto-require'
+	modulesMap = zipObject search, folders
 
-	console.log modules
+	console.log modulesMap
 
 module.exports
 	search: ['./node_modules/', './test/my-modules/']
-	without: ['gulp', 'run-sequence']
-	only: ['grunt']
+	without: ['gulp', 'run-sequence', 'chalk']
+	only: ['grunt', 'gulp']
