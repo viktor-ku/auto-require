@@ -9,12 +9,12 @@ Array::drop = require './deleteFromArray'
 
 module.exports = (options) ->
 
+	folders = []
+
 	if valid options.search
 		{search} = options
 	else
 		search = ['./node_modules/']
-
-	folders = (fs.readdirSync path.resolve one for one in search)
 
 	if valid options.only
 		{only} = options
@@ -22,19 +22,14 @@ module.exports = (options) ->
 		if valid options.without
 			{without} = options
 
+	for onePath in search
+		folders.push fs.readdirSync path.resolve onePath
+
 	modules = zipObject search, folders
 
 	for k, v of modules
 		v.drop '.bin'
 		v.drop 'auto-require'
-		if without
-			v.drop one for one in without
-		if only
-			for one in only
-				if v isnt one
-					v.splice /[a-z-_.]+/g, 1
-				else
-					continue
 
 	console.log modules
 
