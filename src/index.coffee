@@ -3,7 +3,7 @@ path = require 'path'
 valid = require './valid'
 color = require 'chalk'
 Require = require './require.class'
-_ = require 'lodash'
+zipObject = require 'lodash.zipobject'
 
 Array::drop = require './deleteFromArray'
 
@@ -42,7 +42,3 @@ module.exports
 	search: ['./node_modules/', './test/my-modules/']
 	without: ['gulp', 'run-sequence']
 	only: ['grunt']
-
-# add lodash
-# add only implementation
-# plug with Class
