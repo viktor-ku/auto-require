@@ -4,7 +4,6 @@ path = require 'path'
 module.exports = class Require
 	constructor: (modulesMap, @supportList = /gulp|grunt|broccoli/g) ->
 		map = @parseMosulesMap modulesMap
-		console.log map
 		packagesName = @makePackagesName map.packages
 		nodeModulesName = @makeNodeModulesName map.fullPaths
 		@collection = zipObject packagesName, nodeModulesName
@@ -24,7 +23,7 @@ module.exports = class Require
 
 	makeNodeModulesName: (files) ->
 		for file in files
-			return require path.resolve file
+			require path.resolve file
 
 	makePackagesName: (files) ->
 		packages = []
@@ -39,7 +38,7 @@ module.exports = class Require
 				else name += concat el
 			return name
 		for file in files
-			part = file.split '-'
+			part = file.split /[-.]/g
 			if one part
 				packages.push part[0]
 			else if exclusive part

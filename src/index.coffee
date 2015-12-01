@@ -14,14 +14,15 @@ module.exports = (options) ->
 	without = null
 	search = ['./node_modules/']
 
-	if valid options.search
-		{search} = options
+	if options
+		if valid options.search
+			{search} = options
 
-	if valid options.only
-		{only} = options
-	else
-		if valid options.without
-			{without} = options
+		if valid options.only
+			{only} = options
+		else
+			if valid options.without
+				{without} = options
 
 	for onePath in search
 		try
@@ -52,9 +53,4 @@ module.exports = (options) ->
 
 	modulesMap = zipObject search, folders
 	that = new Require modulesMap
-	console.dir Object.keys that.collection
-
-module.exports
-	search: ['./node_modules/', './test/my-modules/', './a/']
-	without: ['gulp', 'run-sequence', 'chalk']
-	only: ['grunt', 'gulp', 'big-wall']
+	return that.collection

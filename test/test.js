@@ -91,7 +91,7 @@ describe("Auto-require", function() {
 	});
 	describe('Testing search() function with node_modules', function() {
 		var $ = require('../dist/index.js')({
-			search: ['./my-modules/', '../node_modules/']
+			search: ['./my-modules/', './node_modules/']
 		});
 		it('super-smile is accesible via $.superSmile', function() {
 			assert.deepEqual($.superSmile, require('./my-modules/super-smile'));
