@@ -2,7 +2,7 @@ zipObject = require 'lodash.zipobject'
 path = require 'path'
 
 module.exports = class Require
-	constructor: (modulesMap, @supportList = /gulp|grunt|broccoli/g) ->
+	constructor: (modulesMap) ->
 		map = @parseMosulesMap modulesMap
 		packagesName = @makePackagesName map.packages
 		nodeModulesName = @makeNodeModulesName map.fullPaths
@@ -29,7 +29,8 @@ module.exports = class Require
 		packages = []
 		one = (arr) -> if arr.length is 1 then yes
 		exclusive = (arr) ->
-			if arr.join(';').match(@supportList) then yes
+			supportList = /gulp|grunt|broccoli/g
+			if arr.join(';').match(supportList) then yes
 		concat = (part) -> part[0].toUpperCase() + part[1...]
 		concatenation = (arr) ->
 			name = ''

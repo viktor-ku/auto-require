@@ -93,8 +93,8 @@ describe("Auto-require", function() {
 		var $ = require('../dist/index.js')({
 			search: ['./my-modules/', './node_modules/']
 		});
-		it('super-smile is accesible via $.superSmile', function() {
-			assert.deepEqual($.superSmile, require('./my-modules/super-smile'));
+		it('big-wall is accesible via $.bigWall', function() {
+			assert.deepEqual($.bigWall, require('./my-modules/big-wall'));
 		});
 		it('gulp is accesible via $.gulp', function() {
 			assert.deepEqual($.gulp, require('gulp'));
