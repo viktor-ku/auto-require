@@ -83,7 +83,7 @@ describe("Auto-require", function() {
 			search: ['./my-modules/']
 		});
 		it('super-smile is accesible via $.superSmile', function() {
-			assert.deepEqual($.superSmile, require('super-smile'));
+			assert.deepEqual($.superSmile, require('./my-modules/super-smile'));
 		});
 		it('gulp is undefined', function() {
 			assert.equal($.gulp, undefined);
