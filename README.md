@@ -1,6 +1,5 @@
 # auto-require
-![tests passed](https://img.shields.io/badge/tests-19%2F19-brightgreen.svg?style=flat-square "tests passed")
-![build success](https://img.shields.io/badge/build-success-brightgreen.svg?style=flat-square "build success")
+![tests passed](https://camo.githubusercontent.com/7d0c5b8519d233167e941de8f3f964fda2a93fe5/687474703a2f2f662e636c2e6c792f6974656d732f32483233334d30493054343333313363336830432f53637265656e25323053686f74253230323031332d30312d33302532306174253230322e34352e3330253230414d2e706e67 "tests passed")
 
 ## It's the best way to automatically require your packages
 
@@ -14,6 +13,7 @@ npm install --save auto-require
 
 ### get into with gulp
 ```js
+// get all modules from 'node_modules/' only
 var $ = require('auto-require')();
 
 $.gulp.task('default', function() { 
@@ -24,6 +24,60 @@ $.gulp.task('default', function() {
 		.pipe($.gulp.dest('dest/'));
 });
 ```
+
+### Options
+
+**1. Get modules you only need**
+
+```js
+var options = {
+	only: ['gulp', 'gulp-stylus', 'gulp-plumber']
+};
+var $ = require('auto-require')(options);
+
+$.gulp.task('stylus', function() {
+	$.gulp.src('styl/app.styl')
+		.pipe($.plumber())
+		.pipe($.stylus())
+		.pipe($.gulp.dest('dest/'));
+});
+```
+
+**2. Get modules you only need from different places**
+
+```js
+var options = {
+	search: ['./node_modules/', './my-custom-folder/'],
+	only: ['gulp', 'gulp-stylus', 'gulp-plumber']
+};
+var $ = require('auto-require')(options);
+
+$.gulp.task('stylus', function() {
+	$.gulp.src('styl/app.styl')
+		.pipe($.plumber())
+		.pipe($.stylus())
+		.pipe($.gulp.dest('dest/'));
+});
+```
+
+**2. Get all modules without some. From different places in this case.**
+
+```js
+var options = {
+	search: ['./node_modules/', './my-custom-folder/'],
+	without: ['blazer', 'jquery']
+};
+var $ = require('auto-require')(options);
+
+$.gulp.task('stylus', function() {
+	$.gulp.src('styl/app.styl')
+		.pipe($.plumber())
+		.pipe($.stylus())
+		.pipe($.gulp.dest('dest/'));
+});
+```
+
+**NB! if you using `only` option - `without` opton will be ignored**
 
 ### What it does?
 
@@ -58,18 +112,3 @@ This tool works fine with *gulp*, *grunt*, *broccoli* and *jquery*.
 - `express` via `$.express`
 - `browser-sync` via `$.browserSync`
 - `andyet-express-auth` via `$.andyetExpressAuth`
-
-### Limited access
-
-```js
-// specify only packages you need
-var need = ['gulp', 'gulp-stylus', 'gulp-plumber'];
-var $ = require('auto-require')(need);
-
-$.gulp.task('stylus', function() {
-	$.gulp.src('styl/app.styl')
-		.pipe($.plumber())
-		.pipe($.stylus())
-		.pipe($.gulp.dest('dest/'));
-});
-```
