@@ -6,6 +6,7 @@ Require = require './require.class'
 zipObject = require 'lodash.zipobject'
 
 Array::drop = require './deleteFromArray'
+Array::drain = require './drainArray'
 
 module.exports = (options) ->
 
@@ -23,8 +24,20 @@ module.exports = (options) ->
 		if valid options.without
 			{without} = options
 
+	# search for these in paths
+	# and push results
+
+
 	for onePath in search
-		folders.push fs.readdirSync path.resolve onePath
+		content = fs.readdirSync path.resolve onePath
+		if only
+			arr = []
+			for one in content
+				for onlyModule in only
+					if one is onlyModule
+						arr.push one
+			content = only
+		folders.push arr
 
 	for moduleGroups in folders
 		if without
@@ -41,4 +54,4 @@ module.exports = (options) ->
 module.exports
 	search: ['./node_modules/', './test/my-modules/']
 	without: ['gulp', 'run-sequence', 'chalk']
-	only: ['grunt', 'gulp']
+	only: ['grunt', 'gulp', 'big-wall']
