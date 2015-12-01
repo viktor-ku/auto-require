@@ -24,12 +24,13 @@ module.exports = (options) ->
 		if valid options.without
 			{without} = options
 
-	# search for these in paths
-	# and push results
-
-
 	for onePath in search
-		content = fs.readdirSync path.resolve onePath
+		try
+			content = fs.readdirSync path.resolve onePath
+		catch e
+			if e.code is 'ENOENT'
+				console.log color.yellow.bold "| WARN! No such file or directory.", "\n| #{e.path}", "\n| So this path will be empty."
+				content = []
 		if only
 			arr = []
 			for one in content
@@ -52,6 +53,6 @@ module.exports = (options) ->
 	console.log modulesMap
 
 module.exports
-	search: ['./node_modules/', './test/my-modules/']
+	search: ['./node_modules/', './test/my-modules/', './a/']
 	without: ['gulp', 'run-sequence', 'chalk']
 	only: ['grunt', 'gulp', 'big-wall']
