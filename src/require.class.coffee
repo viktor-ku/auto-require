@@ -4,19 +4,27 @@ path = require 'path'
 module.exports = class Require
 	constructor: (modulesMap, @supportList = /gulp|grunt|broccoli/g) ->
 		map = @parseMosulesMap modulesMap
-		packagesName = @makePackagesName packages
-		nodeModulesName = @makeNodeModulesName packages
+		console.log map
+		packagesName = @makePackagesName map.packages
+		nodeModulesName = @makeNodeModulesName map.fullPaths
 		@collection = zipObject packagesName, nodeModulesName
 
 	parseMosulesMap: (modulesMap) ->
-		packages: ->
-			for path, modules of modulesMap
-				console.log modules
 
-		fullPaths: -> console.dir modulesMap
+		packagesList = []
+		fullPathsList = []
+
+		for modulePath, modules of modulesMap
+			for one in modules
+				packagesList.push one
+				fullPathsList.push modulePath + one
+
+		packages: packagesList
+		fullPaths: fullPathsList
 
 	makeNodeModulesName: (files) ->
-		require file for file in files
+		for file in files
+			return require path.resolve file
 
 	makePackagesName: (files) ->
 		packages = []
