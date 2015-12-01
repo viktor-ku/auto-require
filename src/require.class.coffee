@@ -1,14 +1,22 @@
+zipObject = require 'lodash.zipobject'
+path = require 'path'
+
 module.exports = class Require
-	constructor: (packages, @supportList = /gulp|grunt|broccoli/g) ->
+	constructor: (modulesMap, @supportList = /gulp|grunt|broccoli/g) ->
+		map = @parseMosulesMap modulesMap
 		packagesName = @makePackagesName packages
 		nodeModulesName = @makeNodeModulesName packages
-		@makeCollection packagesName, nodeModulesName
+		@collection = zipObject packagesName, nodeModulesName
 
-	makeNodeModulesName: (files) -> 
+	parseMosulesMap: (modulesMap) ->
+		packages: ->
+			for path, modules of modulesMap
+				console.log modules
+
+		fullPaths: -> console.dir modulesMap
+
+	makeNodeModulesName: (files) ->
 		require file for file in files
-
-	makeCollection: (a, b) ->
-		@collection = zipObject a, b
 
 	makePackagesName: (files) ->
 		packages = []

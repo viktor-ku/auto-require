@@ -50,7 +50,9 @@ module.exports = (options) ->
 			if oneModule is '.bin' or oneModule is 'auto-require'
 				moduleGroups.drop oneModule
 
-	console.dir modulesMap = zipObject search, folders
+	modulesMap = zipObject search, folders
+	that = new Require modulesMap
+	console.dir Object.keys that.collection
 
 module.exports
 	search: ['./node_modules/', './test/my-modules/', './a/']
