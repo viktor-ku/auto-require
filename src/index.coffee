@@ -6,7 +6,6 @@ Require = require './require.class'
 zipObject = require 'lodash.zipobject'
 
 Array::drop = require './deleteFromArray'
-Array::drain = require './drainArray'
 
 module.exports = (options) ->
 
@@ -20,7 +19,7 @@ module.exports = (options) ->
 
 	if valid options.only
 		{only} = options
-	else if not valid options.only
+	else
 		if valid options.without
 			{without} = options
 
@@ -34,11 +33,11 @@ module.exports = (options) ->
 		if only
 			arr = []
 			for one in content
-				for onlyModule in only
-					if one is onlyModule
-						arr.push one
-			content = only
-		folders.push arr
+				for onlyModule in only when one is onlyModule
+					arr.push one
+			folders.push arr
+		else
+			folders.push content
 
 	for moduleGroups in folders
 		if without
@@ -48,9 +47,7 @@ module.exports = (options) ->
 			if oneModule is '.bin' or oneModule is 'auto-require'
 				moduleGroups.drop oneModule
 
-	modulesMap = zipObject search, folders
-
-	console.log modulesMap
+	console.dir modulesMap = zipObject search, folders
 
 module.exports
 	search: ['./node_modules/', './test/my-modules/', './a/']
