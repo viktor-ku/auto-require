@@ -7,7 +7,6 @@
     "test": "mocha",
     "build": "coffee -bco ./dist/ ./src/*.coffee",
     "dev": "coffee -bwco ./dist/ ./src/*.coffee",
-    "pretty": "js-beautify ./dist/index.js --outfile ./dist/index.js --config ./jsbeautify.json",
     "deploy": "npm build && git push origin master & npm publish",
     "start": "node ./dist/index.js"
   },
