@@ -28,7 +28,10 @@ module.exports = (options) ->
 			content = fs.readdirSync path.resolve onePath
 		catch e
 			if e.code is 'ENOENT'
-				console.log color.yellow.bold "| WARN! No such file or directory.", "\n| #{e.path}", "\n| So this path will be empty."
+				console.log color.yellow.bold """
+					| WARN! No such file or directory.
+					| #{e.path}
+					| So this path will be empty."""
 				content = []
 		if only
 			arr = []
