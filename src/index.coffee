@@ -1,5 +1,1 @@
-
-{ reqr } = require "./reqr"
-{ modulesMap } = require "./modules-map"
-
-module.exports = (options) -> reqr modulesMap options
+module.exports = (options = {}) -> require("./reqr").init(options)

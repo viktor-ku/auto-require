@@ -4,10 +4,22 @@
  * 
 ###
 
+fs = require "fs"
 path = require "path"
 { zipObject } = require "./helpers"
 
-exports.reqr = (entry) ->
+###*
+ * init
+ *
+ * Initialization the auto-require process
+ *
+ * @param {Object} options Options to filter modules. Like only, search, etc.
+ * @return {Object} Object with modules like that { gulp: [Function], express: [Function] }
+###
+
+exports.init = (options) -> reqr modulesMap options
+
+exports.reqr = reqr = (entry) ->
 
   map = parseModulesMap entry
   packagesName = makePackagesName map.packages
@@ -15,6 +27,60 @@ exports.reqr = (entry) ->
   collection = zipObject packagesName, nodeModulesName
 
   return collection
+
+exports.modulesMap = modulesMap = (options) ->
+
+  folders = []
+  only = null
+  without = null
+  search = ['./node_modules/']
+
+  if options
+
+    if options.search
+      { search } = options
+
+    if options.only
+      { only } = options
+    else
+      if options.without
+        { without } = options
+
+  for onePath in search
+
+    try
+      content = fs.readdirSync path.resolve onePath
+
+    catch e
+      if e.code is 'ENOENT'
+        console.log """
+          | WARN! No such file or directory.
+          | #{e.path}
+          | So this path will be empty."""
+        content = []
+
+    if only
+      arr = []
+      for one in content
+        for onlyModule in only when one is onlyModule
+          arr.push one
+      folders.push arr
+    else
+      folders.push content
+
+  for moduleGroups in folders
+
+    if without
+
+      for one in without
+        moduleGroups.drop one
+
+    for oneModule in moduleGroups
+      if oneModule is '.bin' or oneModule is 'auto-require'
+        moduleGroups.drop oneModule
+
+  modulesMap = zipObject search, folders
+  return modulesMap
 
 exports.makePackagesName = makePackagesName = (packagesNames) ->
 
@@ -65,7 +131,7 @@ exports.exclusive = exclusive = (arr) ->
 
   supportList = /(?:gulp|grunt|broccoli)/g
 
-  if arr.join(' ').match(supportList)
+  if arr.join(" ").match(supportList)
     return on
 
 exports.concat = concat = (part) ->
@@ -74,7 +140,7 @@ exports.concat = concat = (part) ->
 
 exports.concatenation = concatenation = (arr) ->
 
-  name = ''
+  name = ""
 
   for el, i in arr
     if i is 0 then name += el
