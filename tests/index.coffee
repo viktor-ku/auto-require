@@ -3,7 +3,7 @@
 
 $ = require "../src/index"
 
-{ zipObject, valid } = require "../src/helpers"
+{ zipObject } = require "../src/helpers"
 
 describe "Helpers", ->
 

@@ -1,6 +1,6 @@
 fs = require 'fs'
 path = require 'path'
-{ zipObject, valid } = require "./helpers"
+{ zipObject } = require "./helpers"
 
 exports.modulesMap = (options) ->
 
@@ -11,14 +11,14 @@ exports.modulesMap = (options) ->
 
   if options
 
-    if valid options.search
-      {search} = options
+    if options.search
+      { search } = options
 
-    if valid options.only
-      {only} = options
+    if options.only
+      { only } = options
     else
-      if valid options.without
-        {without} = options
+      if options.without
+        { without } = options
 
   for onePath in search
 
