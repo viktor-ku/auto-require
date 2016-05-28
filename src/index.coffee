@@ -1,5 +1,5 @@
 
-reqr = require "./reqr"
-modulesMap = require "./modules-map"
+{ reqr } = require "./reqr"
+{ modulesMap } = require "./modules-map"
 
-console.log reqr {}
+module.exports = (options) -> reqr modulesMap options

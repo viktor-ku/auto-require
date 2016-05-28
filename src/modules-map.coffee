@@ -1,11 +1,6 @@
 fs = require 'fs'
 path = require 'path'
-reqr = require './reqr'
-
-Array::drop = (element) ->
-  if @indexOf(element) >= 0
-    @splice @indexOf(element), 1
-  return @
+{ zipObject, valid } = require "./helpers"
 
 exports.modulesMap = (options) ->
 
@@ -21,7 +16,6 @@ exports.modulesMap = (options) ->
 
     if valid options.only
       {only} = options
-
     else
       if valid options.without
         {without} = options

@@ -16,3 +16,8 @@ exports.zipObject = (keys, values) ->
 exports.valid = (obj) ->
   if obj? and obj isnt '' and obj and obj.length > 0
     return yes
+
+Array::drop = (element) ->
+  if @indexOf(element) >= 0
+    @splice @indexOf(element), 1
+  return @
