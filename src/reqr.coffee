@@ -72,19 +72,19 @@ exports.modulesMap = modulesMap = (options) ->
 
   if only and without then without = undefined
 
-  # if node_modules/
-    # get packageDeps
-    # return [array]
+  if only
+    modules = modules.map (x) -> contains x, only
 
-  # if custom search input
-    # get all content
+  if without
+    modules = modules.map (x) -> drop x, without
 
-  # if only / without occurs, then exclude things from packageDeps
+  map = zipObject search, modules
 
-  console.log "search", search
-  console.log "folders", folders
+  console.log "\nsearch", search
+  console.log "\nmodules", modules
+  console.log "\nmap", map
 
-  return zipObject search, folders
+  return map
 
 
 exports.makePackagesName = makePackagesName = (packagesNames) ->

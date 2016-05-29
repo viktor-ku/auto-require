@@ -21,14 +21,20 @@ describe "Helpers", ->
 
   describe "drop()", ->
 
-    it "drop([1, 2, 3], 1) => [2, 3]", ->
-      assert.deepEqual drop([1, 2, 3], 1), [2, 3]
+    it "drop([1, 2, 3], [1]) => [2, 3]", ->
+      assert.deepEqual drop([1, 2, 3], [1]), [2, 3]
 
-    it "drop(['name', 'age'], 'name') => ['age']", ->
-      assert.deepEqual drop(["name", "age"], "name"), ["age"]
+    it "drop(['name', 'age'], ['name']) => ['age']", ->
+      assert.deepEqual drop(["name", "age"], ["name"]), ["age"]
 
-    it "drop(['name', 'age'], 'zip') => ['name', 'age']", ->
-      assert.deepEqual drop(["name", "age"], "zip"), ["name", "age"]
+    it "drop(['name', 'age'], ['zip']) => ['name', 'age']", ->
+      assert.deepEqual drop(["name", "age"], ["zip"]), ["name", "age"]
+
+    it "drop([1, 2], [9, 8, 7, 6, 5]) => [1, 2]", ->
+      assert.deepEqual drop([1, 2], [9, 8, 7, 6, 5]), [1, 2]
+
+    it "drop([0, 1], [9, 8, 7, 6, 1]) => [0]", ->
+      assert.deepEqual drop([0, 1], [9, 8, 7, 6, 1]), [0]
 
   describe "contains()", ->
 
@@ -44,5 +50,7 @@ describe "auto-require", ->
 
     it "Should work", ->
 
-      assert.isTrue $
-        search: ["node_modules/", "tests/my-modules/"]
+      # $
+        # search: ["node_modules/", "tests/my-modules/"]
+        # only: ["gulp", "coffee-script", "big-wall"]
+        # without: ["gulp"]

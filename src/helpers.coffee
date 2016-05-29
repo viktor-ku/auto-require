@@ -46,11 +46,15 @@ exports.contains = (a, b) ->
  *
  * Drop item from array
  *
- * @param {Array} array array from we dropping
- * @param {String / Number} item Item we want drop
- * @return {Array} New array that no longer contain the item
+ * @param {Array} a Array from we dropping
+ * @param {Array} b Array with values we drop
+ * @return {Array} New array that no longer contain the second array values
 ###
 
-exports.drop = (array, item) ->
+exports.drop = (a, b) ->
 
-  return array.filter (x) -> x isnt item
+  a.forEach (x) ->
+    b.forEach (y) ->
+      if x is y then a[a.indexOf(x)] = null
+  
+  return a.filter (x) -> if x is 0 then on else x
