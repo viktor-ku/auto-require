@@ -13,7 +13,14 @@ exports.zipObject = (keys, values) ->
   
   return object
 
-Array::drop = (element) ->
-  if @indexOf(element) >= 0
-    @splice @indexOf(element), 1
-  return @
+
+exports.contains = (a, b) ->
+
+  a.filter (x) -> b.includes x
+
+
+exports.drop = (array, item) ->
+
+  if not array.includes item then return array
+
+  array.filter (x) -> x isnt item

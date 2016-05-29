@@ -6,7 +6,7 @@
 
 fs = require "fs"
 path = require "path"
-{ zipObject } = require "./helpers"
+{ zipObject, contains } = require "./helpers"
 
 ###*
  * init
@@ -19,22 +19,47 @@ path = require "path"
 
 exports.init = (options) -> reqr modulesMap options
 
-exports.reqr = reqr = (entry) ->
 
-  map = parseModulesMap entry
+###*
+ * reqr
+ *
+ * Require modules based on node modules folder map
+ *
+ * @param {Object} modulesSchema Schema by key "folder" => [packagesInFolder]
+ * {"node_modules": [gulp, express]}
+ * @return {Object} Object that contains all modules by "name" => [Function]
+###
+
+exports.reqr = reqr = (modulesSchema) ->
+
+  map = parseModulesMap modulesSchema
   packagesName = makePackagesName map.packages
   nodeModulesName = makeNodeModulesName map.fullPaths
   collection = zipObject packagesName, nodeModulesName
 
   return collection
 
+
+###*
+ * modulesMap
+ *
+ * Generate schema for reqr.
+ * The schema means "folderName": [module as folderContent]
+ *
+ * @param {Object} options Options like only, without, etc...
+ * @return {Object} Object as mension above.
+###
+
 exports.modulesMap = modulesMap = (options) ->
 
+  # define
   folders = []
   only = null
   without = null
   search = ['./node_modules/']
 
+  # if there any options?
+  #   - get values from there and set those to the defined vars earlier
   if options
 
     if options.search
@@ -46,11 +71,12 @@ exports.modulesMap = modulesMap = (options) ->
       if options.without
         { without } = options
 
+  # get content from each search paths
+  # push it into folders array
   for onePath in search
 
     try
       content = fs.readdirSync path.resolve onePath
-
     catch e
       if e.code is 'ENOENT'
         console.log """
@@ -60,11 +86,12 @@ exports.modulesMap = modulesMap = (options) ->
         content = []
 
     if only
-      arr = []
-      for one in content
-        for onlyModule in only when one is onlyModule
-          arr.push one
-      folders.push arr
+      folders.push contains content, only
+      # arr = []
+      # for one in content
+      #   for onlyModule in only
+      #     if one is onlyModule then arr.push one
+      # folders.push arr
     else
       folders.push content
 
@@ -79,8 +106,8 @@ exports.modulesMap = modulesMap = (options) ->
       if oneModule is '.bin' or oneModule is 'auto-require'
         moduleGroups.drop oneModule
 
-  modulesMap = zipObject search, folders
-  return modulesMap
+  return zipObject search, folders
+
 
 exports.makePackagesName = makePackagesName = (packagesNames) ->
 
