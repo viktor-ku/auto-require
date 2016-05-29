@@ -6,7 +6,7 @@
 
 fs = require "fs"
 path = require "path"
-{ zipObject, contains } = require "./helpers"
+{ zipObject, contains, drop } = require "./helpers"
 
 ###*
  * init
@@ -52,59 +52,36 @@ exports.reqr = reqr = (modulesSchema) ->
 
 exports.modulesMap = modulesMap = (options) ->
 
-  # define
-  folders = []
-  only = null
-  without = null
-  search = ['./node_modules/']
+  { only, global, without, search = ["node_modules/"] } = options
 
-  # if there any options?
-  #   - get values from there and set those to the defined vars earlier
-  if options
+  nm = search
+    .filter (x) ->
+      x.match "node_modules"
+    .map (x) ->
+      JSON.parse(fs.readFileSync(path.resolve("package.json"), "utf-8"))
+    .map (x) ->
+      [].concat Object.keys(x.devDependencies), Object.keys(x.dependencies)
 
-    if options.search
-      { search } = options
+  custom = search
+    .filter (x) ->
+      not x.match "node_modules"
+    .map (x) ->
+      fs.readdirSync path.resolve x
 
-    if options.only
-      { only } = options
-    else
-      if options.without
-        { without } = options
+  console.log "nm", nm
+  console.log "custom", custom
 
-  # get content from each search paths
-  # push it into folders array
-  for onePath in search
+  # if node_modules/
+    # get packageDeps
+    # return [array]
 
-    try
-      content = fs.readdirSync path.resolve onePath
-    catch e
-      if e.code is 'ENOENT'
-        console.log """
-          | WARN! No such file or directory.
-          | #{e.path}
-          | So this path will be empty."""
-        content = []
+  # if custom search input
+    # get all content
 
-    if only
-      folders.push contains content, only
-      # arr = []
-      # for one in content
-      #   for onlyModule in only
-      #     if one is onlyModule then arr.push one
-      # folders.push arr
-    else
-      folders.push content
+  # if only / without occurs, then exclude things from packageDeps
 
-  for moduleGroups in folders
-
-    if without
-
-      for one in without
-        moduleGroups.drop one
-
-    for oneModule in moduleGroups
-      if oneModule is '.bin' or oneModule is 'auto-require'
-        moduleGroups.drop oneModule
+  console.log "search", search
+  console.log "folders", folders
 
   return zipObject search, folders
 

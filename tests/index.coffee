@@ -37,3 +37,12 @@ describe "Helpers", ->
 
     it "['gulp', 'grunt', 'react'] contains ['gulp'] => ['gulp']", ->
       assert.deepEqual contains(["gulp", "grunt", "react"], ["gulp"]), ["gulp"]
+
+describe "auto-require", ->
+
+  describe "$()", ->
+
+    it "Should work", ->
+
+      assert.isTrue $()
+        # search: ["node_modules/", "tests/my-modules/"]
