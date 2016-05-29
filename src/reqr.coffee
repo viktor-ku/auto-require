@@ -68,8 +68,9 @@ exports.modulesMap = modulesMap = (options) ->
     .map (x) ->
       fs.readdirSync path.resolve x
 
-  console.log "nm", nm
-  console.log "custom", custom
+  modules = [].concat nm, custom
+
+  if only and without then without = undefined
 
   # if node_modules/
     # get packageDeps

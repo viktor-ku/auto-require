@@ -44,5 +44,5 @@ describe "auto-require", ->
 
     it "Should work", ->
 
-      assert.isTrue $()
-        # search: ["node_modules/", "tests/my-modules/"]
+      assert.isTrue $
+        search: ["node_modules/", "tests/my-modules/"]
