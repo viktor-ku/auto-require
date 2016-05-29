@@ -50,7 +50,7 @@ describe "auto-require", ->
 
     it "Should work", ->
 
-      # $
-        # search: ["node_modules/", "tests/my-modules/"]
-        # only: ["gulp", "coffee-script", "big-wall"]
-        # without: ["gulp"]
+      assert.isTrue $
+        search: ["node_modules/", "tests/my-modules/"]
+        only: ["gulp", "coffee-script", "big-wall"]
+        without: ["gulp", "coffee-script", "big-wall"]
