@@ -21,11 +21,14 @@ describe "Helpers", ->
 
   describe "drop()", ->
 
-    it "[1, 2, 3].drop(1) => [1, 2]", ->
+    it "drop([1, 2, 3], 1) => [2, 3]", ->
       assert.deepEqual drop([1, 2, 3], 1), [2, 3]
 
-    it "['name', 'age'].drop('name') => ['age']", ->
+    it "drop(['name', 'age'], 'name') => ['age']", ->
       assert.deepEqual drop(["name", "age"], "name"), ["age"]
+
+    it "drop(['name', 'age'], 'zip') => ['name', 'age']", ->
+      assert.deepEqual drop(["name", "age"], "zip"), ["name", "age"]
 
   describe "contains()", ->
 

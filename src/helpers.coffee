@@ -1,26 +1,44 @@
 exports.zipObject = (keys, values) ->
 
-  object = {}
-  
-  for value, index in values
+  o = {}
+
+  values.forEach (value, index) ->
 
     if not keys[index]
-      object.additional ?= []
-      object.additional = object.additional.concat value
-      continue
+      if not o.additional then o.additional = []
+      o.additional.push value
+      return
 
-    object[keys[index]] = values[index]
-  
-  return object
+    o[keys[index]] = values[index]
+      
+  return o
 
+
+###*
+ * contains
+ *
+ * Check if the first array really contains things from second array
+ *
+ * @param {Array} a first array
+ * @param {Array} b second array
+ * @return {Array} New array based on what is first array actuall contains
+###
 
 exports.contains = (a, b) ->
 
   a.filter (x) -> b.includes x
 
 
-exports.drop = (array, item) ->
+###*
+ * drop
+ *
+ * Drop item from array
+ *
+ * @param {Array} array array from we dropping
+ * @param {String / Number} item Item we drop
+ * @return {Array} New array that no longer contain the item
+###
 
-  if not array.includes item then return array
+exports.drop = (array, item) ->
 
   array.filter (x) -> x isnt item
