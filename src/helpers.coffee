@@ -1,3 +1,15 @@
+###*
+ * zipObject
+ *
+ * Makes an object from first array as keys and second array
+ * as values. In addition if values more than keys will store
+ * the 'addition' key with those overhead values.
+ *
+ * @param {Array} keys First array
+ * @param {Array} values Second array
+ * @return {Object} Object as described above
+###
+
 exports.zipObject = (keys, values) ->
 
   o = {}
@@ -26,7 +38,7 @@ exports.zipObject = (keys, values) ->
 
 exports.contains = (a, b) ->
 
-  a.filter (x) -> b.includes x
+  return a.filter (x) -> b.includes x
 
 
 ###*
@@ -35,10 +47,10 @@ exports.contains = (a, b) ->
  * Drop item from array
  *
  * @param {Array} array array from we dropping
- * @param {String / Number} item Item we drop
+ * @param {String / Number} item Item we want drop
  * @return {Array} New array that no longer contain the item
 ###
 
 exports.drop = (array, item) ->
 
-  array.filter (x) -> x isnt item
+  return array.filter (x) -> x isnt item
