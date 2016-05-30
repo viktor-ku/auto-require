@@ -4,7 +4,7 @@
 $ = require "../src/index"
 
 { zipObject, contains, drop } = require "../src/helpers"
-{ reqr, modulesMap, makePackagesName, parseModulesMap, makeNodeModulesName, one, exclusive, concat, concatenation } = require "../src/reqr"
+{ modulesMap, makePackagesName, parseModulesMap, makeNodeModulesName, one, exclusive, concatenation } = require "../src/reqr"
 
 describe "Helpers", ->
 
@@ -50,7 +50,12 @@ describe "auto-require", ->
 
     it "Should work", ->
 
-      assert.isTrue $
+      assert.isOk $
         search: ["node_modules/", "tests/my-modules/"]
-        only: ["gulp", "coffee-script", "big-wall"]
-        without: ["gulp", "coffee-script", "big-wall"]
+        # only: ["gulp", "coffee-script", "big-wall"]
+        # without: ["gulp", "coffee-script", "big-wall"]
+        globaly: on
+
+    it "gulp should be accessible globaly", ->
+
+      assert.isOk gulp

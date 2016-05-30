@@ -17,42 +17,42 @@ path = require "path"
  * @return {Object} Object with modules like that { gulp: [Function], express: [Function] }
 ###
 
-exports.init = (options) -> reqr modulesMap options
+exports.init = (options) -> main modulesMap options
 
 
 ###*
- * reqr
+ * main
  *
  * Require modules based on node modules folder map
  *
- * @param {Object} modulesSchema Schema by key "folder" => [packagesInFolder]
+ * @param {Object} schema Schema by key "folder" => [packagesInFolder]
  * {"node_modules": [gulp, express]}
  * @return {Object} Object that contains all modules by "name" => [Function]
 ###
 
-exports.reqr = reqr = (modulesSchema) ->
+main = ({ schema, globaly }) ->
 
-  map = parseModulesMap modulesSchema
+  map = parseModulesMap schema
   packagesName = makePackagesName map.packages
   nodeModulesName = makeNodeModulesName map.fullPaths
   collection = zipObject packagesName, nodeModulesName
-
+  if globaly then global[k] = v for k, v of collection
   return collection
 
 
 ###*
  * modulesMap
  *
- * Generate schema for reqr.
+ * Generate schema for main.
  * The schema means "folderName": [module as folderContent]
  *
- * @param {Object} options Options like only, without, etc...
- * @return {Object} Object as mension above.
+ * @param {Object} options Options like only, without, etc
+ * @return {Object} Object as described above
 ###
 
 exports.modulesMap = modulesMap = (options) ->
 
-  { only, global, without, search = ["node_modules/"] } = options
+  { only, globaly, without, search = ["node_modules/"] } = options
 
   nm = search
     .filter (x) ->
@@ -60,7 +60,7 @@ exports.modulesMap = modulesMap = (options) ->
     .map (x) ->
       JSON.parse(fs.readFileSync(path.resolve("package.json"), "utf-8"))
     .map (x) ->
-      [].concat Object.keys(x.devDependencies), Object.keys(x.dependencies)
+      [].concat Object.keys(x.dependencies), Object.keys(x.devDependencies)
 
   custom = search
     .filter (x) ->
@@ -78,14 +78,18 @@ exports.modulesMap = modulesMap = (options) ->
   if without
     modules = modules.map (x) -> drop x, without
 
-  map = zipObject search, modules
+  schema = zipObject search, modules
+  return { schema, globaly }
 
-  console.log "\nsearch", search
-  console.log "\nmodules", modules
-  console.log "\nmap", map
 
-  return map
-
+###*
+ * makePackagesName
+ *
+ * Makes names for incoming packages, e.g. "gulp-plumber" => "gulpPlumber"
+ * 
+ * @param {Array} packagesNames Names for those packages
+ * @return {Array} New names for packages
+###
 
 exports.makePackagesName = makePackagesName = (packagesNames) ->
 
@@ -106,31 +110,74 @@ exports.makePackagesName = makePackagesName = (packagesNames) ->
 
   return packages
 
-exports.parseModulesMap = parseModulesMap = (entry) ->
 
-  packagesList = []
-  fullPathsList = []
+###*
+ * parseModulesMap
+ *
+ * Generate advanced packages map, so we can include packages directly
+ * to the output object
+ *
+ * @param {Object} schema Schema object that contains folder name and
+ * it's content (folder names)
+ * @return {Object} fullpaths: [packagesPaths], packages: [packagesName]
+###
 
-  for modulePath, modules of entry
+exports.parseModulesMap = parseModulesMap = (schema) ->
 
-    for one in modules
+  packages = []
+  fullPaths = []
 
-      packagesList.push one
-      fullPathsList.push modulePath + one
+  for key, modules of schema
 
-  return {
-    fullPaths: fullPathsList
-    packages: packagesList
-  }
+    modules.forEach (module) ->
+
+      packages.push module
+      fullPaths.push key + module
+
+  result = { fullPaths, packages }
+
+  return result
+
+
+###*
+ * makeNodeModulesName
+ *
+ * Function that requires the modules by the packages paths given above
+ * 
+ * @param {Array} packagesPaths Full paths for the packages
+ * @return {Array} Modules
+###
 
 exports.makeNodeModulesName = makeNodeModulesName = (packagesPaths) ->
 
-  for file in packagesPaths
+  return packagesPaths.map (file) ->
     require path.resolve file
+
+
+###*
+ * one
+ *
+ * Check if given array has one item only
+ *
+ * @param {Array} arr Array to check
+ * @return {Boolean} One item or not
+###
 
 exports.one = one = (arr) ->
 
-  if arr.length is 1 then yes
+  if arr.length is 1
+    return on
+
+
+###*
+ * exclusive
+ *
+ * Check if given array has exclusive item like
+ * gulp, grunt, etc
+ *
+ * @param {Array} arr Array to check
+ * @return {Boolean} Item is exclusive or not
+###
 
 exports.exclusive = exclusive = (arr) ->
 
@@ -139,16 +186,26 @@ exports.exclusive = exclusive = (arr) ->
   if arr.join(" ").match(supportList)
     return on
 
-exports.concat = concat = (part) ->
 
-  part[0].toUpperCase() + part[1...]
+###*
+ * concatenation
+ *
+ * Function that transforms array into string that contains
+ * completed name for the packages that will be used
+ *
+ * @param {Array} arr Array to transform
+ * @return {String} Completed string
+###
 
 exports.concatenation = concatenation = (arr) ->
 
   name = ""
 
-  for el, i in arr
-    if i is 0 then name += el
-    else name += concat el
+  arr.forEach (element, i) ->
+
+    if i is 0
+      return name += element
+    else
+      return name += element[0].toUpperCase() + element[1...]
 
   return name
