@@ -1,9 +1,3 @@
-###*
- * @reqr
- *
- * 
-###
-
 fs = require "fs"
 path = require "path"
 { zipObject, contains, drop } = require "./helpers"

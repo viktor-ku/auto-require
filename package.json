@@ -2,7 +2,7 @@
   "name": "auto-require",
   "version": "2.0.1",
   "description": "No need to require any packages now",
-  "main": "dist/index.js",
+  "main": "build/index.js",
   "scripts": {
     "test": "mocha tests/index.coffee --compilers coffee:coffee-script/register",
     "start": "nodemon src/index.coffee -w src/",

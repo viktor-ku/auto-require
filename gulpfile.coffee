@@ -9,7 +9,7 @@ gulp.task "build", ->
     .pipe plumber errorHandler: notify.onError "Error: <%= error.message %>"
     .pipe coffee bare: on
     .pipe do prettify
-    .pipe gulp.dest "dist/"
+    .pipe gulp.dest "build/"
 
 gulp.task "watch", ->
   gulp.watch "src/*.coffee", ["build"]
