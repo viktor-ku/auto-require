@@ -74,7 +74,7 @@ describe "auto-require", ->
 
       assert.isOk $
         search: ["node_modules/", "tests/my-modules/"]
-        only: ["gulp", "coffee-script", "big-wall"]
+        only: ["gulp", "coffee-script", "big-wall", "gulp-plumber"]
         without: ["gulp", "coffee-script", "big-wall"]
         globaly: on
 

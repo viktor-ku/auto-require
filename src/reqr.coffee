@@ -82,27 +82,23 @@ exports.modulesMap = modulesMap = (options = {}) ->
  * Makes names for incoming packages, e.g. "gulp-plumber" => "gulpPlumber"
  * 
  * @param {Array} packagesNames Names for those packages
- * @return {Array} New names for packages
+ * @return {Array} New array with names (for packages)
 ###
 
 exports.makePackagesName = makePackagesName = (packagesNames) ->
 
-  packages = []
-
-  for file in packagesNames
+  return packagesNames.map (file, i, arr) ->
 
     part = file.split /[-.]/g
 
     if one part
-      packages.push part
+      return part[0]
 
     else if exclusive part
-      packages.push concatenation part[1...]
+      return concatenation part[1...]
 
     else if not exclusive part
-      packages.push concatenation part
-
-  return packages
+      return concatenation part
 
 
 ###*

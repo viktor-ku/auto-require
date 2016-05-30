@@ -107,24 +107,21 @@ exports.modulesMap = modulesMap = function(options) {
  * Makes names for incoming packages, e.g. "gulp-plumber" => "gulpPlumber"
  * 
  * @param {Array} packagesNames Names for those packages
- * @return {Array} New names for packages
+ * @return {Array} New array with names (for packages)
  */
 
 exports.makePackagesName = makePackagesName = function(packagesNames) {
-  var file, j, len, packages, part;
-  packages = [];
-  for (j = 0, len = packagesNames.length; j < len; j++) {
-    file = packagesNames[j];
+  return packagesNames.map(function(file, i, arr) {
+    var part;
     part = file.split(/[-.]/g);
     if (one(part)) {
-      packages.push(part);
+      return part[0];
     } else if (exclusive(part)) {
-      packages.push(concatenation(part.slice(1)));
+      return concatenation(part.slice(1));
     } else if (!exclusive(part)) {
-      packages.push(concatenation(part));
+      return concatenation(part);
     }
-  }
-  return packages;
+  });
 };
 
 
