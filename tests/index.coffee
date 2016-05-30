@@ -46,16 +46,42 @@ describe "Helpers", ->
 
 describe "auto-require", ->
 
+  describe "modulesMap()", ->
+
+    it "Should be OK", ->
+
+      assert.isOk modulesMap()
+
+    it "Should return globaly as false", ->
+
+      assert.deepEqual modulesMap().globaly, no
+
+    it "Should return globaly as true", ->
+
+      assert.deepEqual modulesMap({globaly: on}).globaly, on
+
+    it "Should return only gulp in node_modules and be not global", ->
+
+      assert.deepEqual modulesMap({only: "gulp"}), schema: { 'node_modules/': [ 'gulp' ] }, globaly: no
+
+    it "Should return without all except chai in node_modules and be not global", ->
+
+      assert.deepEqual modulesMap({without: ["gulp", "gulp-coffee", "gulp-jsbeautifier", "gulp-notify", "gulp-plumber", "coffee-script"]}), schema: { 'node_modules/': [ 'chai' ] }, globaly: no
+
   describe "$()", ->
 
     it "Should work", ->
 
       assert.isOk $
         search: ["node_modules/", "tests/my-modules/"]
-        # only: ["gulp", "coffee-script", "big-wall"]
-        # without: ["gulp", "coffee-script", "big-wall"]
+        only: ["gulp", "coffee-script", "big-wall"]
+        without: ["gulp", "coffee-script", "big-wall"]
         globaly: on
 
     it "gulp should be accessible globaly", ->
 
       assert.isOk gulp
+
+    it "bigWall should be accessible globaly (custom)", ->
+
+      assert.isOk bigWall

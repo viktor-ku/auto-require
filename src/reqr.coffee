@@ -44,15 +44,15 @@ main = ({ schema, globaly }) ->
  * modulesMap
  *
  * Generate schema for main.
- * The schema means "folderName": [module as folderContent]
+ * The schema means "folderName": [folderContent]
  *
  * @param {Object} options Options like only, without, etc
  * @return {Object} Object as described above
 ###
 
-exports.modulesMap = modulesMap = (options) ->
+exports.modulesMap = modulesMap = (options = {}) ->
 
-  { only, globaly, without, search = ["node_modules/"] } = options
+  { only, globaly = no, without, search = ["node_modules/"] } = options
 
   nm = search
     .filter (x) ->
