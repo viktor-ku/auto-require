@@ -1,9 +1,22 @@
 # auto-require
-![tests passed](https://camo.githubusercontent.com/7d0c5b8519d233167e941de8f3f964fda2a93fe5/687474703a2f2f662e636c2e6c792f6974656d732f32483233334d30493054343333313363336830432f53637265656e25323053686f74253230323031332d30312d33302532306174253230322e34352e3330253230414d2e706e67 "tests passed")
+
+![build-pass](https://img.shields.io/badge/build-pass-green.svg?style=flat-square)
+![tests-18](https://img.shields.io/badge/tests-18-green.svg?style=flat-square)
+![dependencies-no](https://img.shields.io/badge/dependencies-no-green.svg?style=flat-square)
 
 ## It's the best way to automatically require your packages
 
 Checkout [changelog](changelog.md) also
+
+### Motivation
+
+I was so tired to write a lot constiable definitions in my build scripts, so I have decided to write a tiny library for including them automatically. So it's basically the library for those purposes, but you can use it everywhere.
+
+### What's new in 2.1.0
+
+- Avoid including all packages from `node_modules` and include packages specified in `packages.json` only
+- Add `globaly` option, so you can avoid using any var (like `$` in examples)
+- Avoid using dependencies
 
 ### install
 
@@ -11,81 +24,98 @@ Checkout [changelog](changelog.md) also
 npm install --save auto-require
 ```
 
-### get into with gulp
+### Get started
+
+There are examples using `gulp`, but you can use this package with anything else.
+
 ```js
 // get all modules from 'node_modules/' only
-var $ = require('auto-require')();
+const $ = require('auto-require')()
 
-$.gulp.task('default', function() { 
-	$.gulp.src('src/*.jade')
+// Do you see any gulp, plumber, pug const definitions here?
+$.gulp.task('default', () => {
+	$.gulp.src('src/*.plumber')
 		.pipe($.plumber())
-		.pipe($.jade())
-		.pipe($.util.log('Do you see any gulp, plumber, jade, util var definitions here?'))
-		.pipe($.gulp.dest('dest/'));
-});
+		.pipe($.pug())
+		.pipe($.gulp.dest('dest/'))
+})
 ```
 
 ### Options
 
-**1. Get modules you only need**
+#### 1. Get modules you only need
 
 ```js
-var options = {
+const options = {
 	only: ['gulp', 'gulp-stylus', 'gulp-plumber']
-};
-var $ = require('auto-require')(options);
+}
 
-$.gulp.task('stylus', function() {
-	$.gulp.src('styl/app.styl')
-		.pipe($.plumber())
-		.pipe($.stylus())
-		.pipe($.gulp.dest('dest/'));
-});
+const $ = require('auto-require')(options)
+
+// $.gulp, $.stylus, $.plumber only avaliable
 ```
 
-**2. Get modules you only need from different places**
+#### 2. Get modules you only need from different places
+
+Note that paths are absolute and begins from the root of your project (it's where the `package.json` is)
 
 ```js
-var options = {
-	search: ['./node_modules/', './my-custom-folder/'],
-	only: ['gulp', 'gulp-stylus', 'gulp-plumber']
-};
-var $ = require('auto-require')(options);
+const options = {
+	search: ['src/my-folder/'],
+	only: ['customize']
+}
 
-$.gulp.task('stylus', function() {
-	$.gulp.src('styl/app.styl')
-		.pipe($.plumber())
-		.pipe($.stylus())
-		.pipe($.gulp.dest('dest/'));
-});
+const $ = require('auto-require')(options)
+
+// $.customize only avaliable
 ```
 
-**2. Get all modules without some. From different places in this case.**
+#### 3. Get all modules without any
 
 ```js
-var options = {
-	search: ['./node_modules/', './my-custom-folder/'],
-	without: ['blazer', 'jquery']
-};
-var $ = require('auto-require')(options);
+const options = {
+	without: ['kaktuz', 'zepto']
+}
 
-$.gulp.task('stylus', function() {
-	$.gulp.src('styl/app.styl')
-		.pipe($.plumber())
-		.pipe($.stylus())
-		.pipe($.gulp.dest('dest/'));
-});
+const $ = require('auto-require')(options)
+
+// $.kaktuz and $.zepto are not avaiable at all
 ```
 
-**NB! if you using `only` option - `without` opton will be ignored**
+#### 4. If only and without, then without will be ignored
+
+```js
+const options = {
+	without: ['gulp', 'zepto']
+	only: ['gulp', 'zepto']
+}
+
+const $ = require('auto-require')(options)
+
+// $.zepto and $.gulp avaliable only
+```
+
+#### 5. Globaly
+
+By using it that way you can get all vars as you specified them, but be careful as it's global namespace.
+
+```js
+const options = {
+	only: ['gulp', 'gulp-notify'],
+	globaly: true
+}
+
+require('auto-require')(options)
+
+// gulp and notify avaliable globaly (only)
+```
 
 ### What it does?
 
-It takes all modules in your `node_modules` folder and exports it as one module,  
-so you can access them all.  
+It takes all modules in your `node_modules` folder by default using data from `package.json` and exports it as one module.
 
 Quick example
-- `express` via `$.express`
+- `express` via `$.express` or `express` if `globaly` set to `true` (and in next examples as well)
 - `browser-sync` via `$.browserSync`
 - `gulp` via `$.gulp`
 - `gulp-inline-css` via `$.inlineCss`
@@ -94,11 +124,11 @@ Quick example
 
 No, you'll not need to write full module name.
 The first part of the module name will be cut in this case.    
-For example we have `gulp-jade` module. How we can access it?  
-Actually it's pretty straightforward - via `$.jade`.  
-As you can see the first part of the `gulp-jade` has been cut.  
+For example we have `gulp-pug` module. How we can access it?  
+Actually it's pretty straightforward - via `$.pug`.  
+As you can see the first part of the `gulp-pug` has been cut.  
 
-This tool works fine with *gulp*, *grunt*, *broccoli* and *jquery*.
+This tool works fine with `gulp`, `grunt`, `broccoli`.
 
 ### Other access examples
 

@@ -1,3 +1,13 @@
+# 2.1.0
+
+##### Changes
+
+- Avoid using dependencies
+- Avoid including all packages from `node_modules` and include packages specified in `packages.json`
+- Add `globaly` option, so you can avoid using any var (like `$` in examples)
+- Rewrote almost all code, so it's faster and way more clean and nice
+- Rewrote tests
+
 # 2.0.0
 
 ##### API changes
