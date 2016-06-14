@@ -1,5 +1,7 @@
 # auto-require
 
+[![Join the chat at https://gitter.im/ViktorKonsta/auto-require](https://badges.gitter.im/ViktorKonsta/auto-require.svg)](https://gitter.im/ViktorKonsta/auto-require?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 ![build-pass](https://img.shields.io/badge/build-pass-green.svg?style=flat-square)
 ![tests-18](https://img.shields.io/badge/tests-18-green.svg?style=flat-square)
 ![dependencies-no](https://img.shields.io/badge/dependencies-no-green.svg?style=flat-square)
