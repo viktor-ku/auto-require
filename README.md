@@ -1,4 +1,5 @@
 # auto-require
+[![Standard - JavaScript Style Guide](https://cdn.rawgit.com/feross/standard/master/badge.svg)](https://github.com/feross/standard)
 
 [![Join the chat at https://gitter.im/ViktorKonsta/auto-require](https://badges.gitter.im/ViktorKonsta/auto-require.svg)](https://gitter.im/ViktorKonsta/auto-require?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
