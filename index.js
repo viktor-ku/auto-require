@@ -2,7 +2,7 @@ const parseOptions = require('./lib/parseOptions')
 const parseModulesMap = require('./lib/parseModulesMap')
 const makePackageNames = require('./lib/makePackageNames')
 const requireModules = require('./lib/requireModules')
-const zipObject = require('./lib/zipObject')
+const zipObject = require('lodash.zipobject')
 
 module.exports = function autoRequire (options) {
   options = parseOptions(options)
@@ -13,9 +13,9 @@ module.exports = function autoRequire (options) {
   const modules = requireModules(map.fullPaths)
   const collection = zipObject(packageNames, modules)
   if (globaly) {
-    for (const k in collection) {
-      global[k] = collection[k]
-    }
+    Object.keys(collection).forEach(x => {
+      global[x] = collection[x]
+    })
   }
   return collection
 }
