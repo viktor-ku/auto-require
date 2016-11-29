@@ -19,7 +19,9 @@
     "url": "https://github.com/ViktorKonsta/auto-require/issues"
   },
   "keywords": "auto, require, auto-require, fast, automaticaly, easy, automatic, loader, auto-loader, module-loader, module",
-  "dependencies": {},
+  "dependencies": {
+    "lodash.camelcase": "^4.3.0"
+  },
   "devDependencies": {
     "eslint": "^3.11.1",
     "eslint-config-standard": "^6.2.1",
