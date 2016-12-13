@@ -5,23 +5,23 @@
 
 Checkout [changelog](changelog.md) also
 
-### Motivation
+## Motivation
 
 I was so tired to write a lot constiable definitions in my build scripts, so I have decided to write a tiny library for including them automatically. So it's basically the library for those purposes, but you can use it everywhere.
 
-### What's new in 2.1.0
+## Features
 
-- Avoid including all packages from `node_modules` and include packages specified in `packages.json` only
-- Add `globaly` option, so you can avoid using any var (like `$` in examples)
-- Avoid using dependencies
+- Requires and caches modules
+- Avoid including all packages from `node_modules` instead include packages specified in `packages.json` only
+- `globaly` option, so you can avoid using any var (like `$` in examples)
 
-### install
+## install
 
 ```
-npm install --save auto-require
+npm install auto-require
 ```
 
-### Get started
+## Get started
 
 There are examples using `gulp`, but you can use this package with anything else.
 
@@ -38,7 +38,7 @@ $.gulp.task('default', () => {
 })
 ```
 
-### Options
+## Options
 
 #### 1. Get modules you only need
 
@@ -107,7 +107,7 @@ require('auto-require')(options)
 // gulp and notify avaliable globaly (only)
 ```
 
-### What it does?
+## What it does?
 
 It takes all modules in your `node_modules` folder by default using data from `package.json` and exports it as one module.
 
@@ -117,7 +117,7 @@ Quick example
 - `gulp` via `$.gulp`
 - `gulp-inline-css` via `$.inlineCss`
 
-### What about jQuery or build tools?
+## What about jQuery or build tools?
 
 No, you'll not need to write full module name.
 The first part of the module name will be cut in this case.    
@@ -127,7 +127,7 @@ As you can see the first part of the `gulp-pug` has been cut.
 
 This tool works fine with `gulp`, `grunt`, `broccoli`.
 
-### Other access examples
+## Other access examples
 
 - `gulp` via `$.gulp`
 - `gulp-plumber` via `$.plumber` 
@@ -139,3 +139,14 @@ This tool works fine with `gulp`, `grunt`, `broccoli`.
 - `express` via `$.express`
 - `browser-sync` via `$.browserSync`
 - `andyet-express-auth` via `$.andyetExpressAuth`
+
+## Test
+
+```
+npm install
+npm test
+```
+
+## License
+
+Licensed under [MIT](./LICENSE.md).

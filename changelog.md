@@ -1,3 +1,17 @@
+# 3.0.1
+
+##### Changes
+
+- `README.md` edit
+
+# 3.0.0
+
+##### Changes
+
+- Refactor so it uses `JavaScript` instead of `CoffeeScript`
+- Add `Standart code style`
+- Fix minor issues and bugs
+
 # 2.1.0
 
 ##### Changes
