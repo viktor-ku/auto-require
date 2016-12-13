@@ -6,6 +6,7 @@
   "scripts": {
     "test": "clear && tap test/*",
     "tap": "clear && tap",
+    "preversion": "npm test",
     "postversion": "git push & git push --tags & npm publish"
   },
   "repository": {
