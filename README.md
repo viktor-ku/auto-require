@@ -105,6 +105,11 @@ const options = {
 require('auto-require')(options)
 
 // gulp and notify avaliable globaly (only)
+
+//All global imports are guarded and can't be overriden:
+gulp = {}
+// Error: gulp is already defined
+}
 ```
 
 ## What it does?
@@ -120,17 +125,17 @@ Quick example
 ## What about jQuery or build tools?
 
 No, you'll not need to write full module name.
-The first part of the module name will be cut in this case.    
-For example we have `gulp-pug` module. How we can access it?  
-Actually it's pretty straightforward - via `$.pug`.  
-As you can see the first part of the `gulp-pug` has been cut.  
+The first part of the module name will be cut in this case.
+For example we have `gulp-pug` module. How we can access it?
+Actually it's pretty straightforward - via `$.pug`.
+As you can see the first part of the `gulp-pug` has been cut.
 
 This tool works fine with `gulp`, `grunt`, `broccoli`.
 
 ## Other access examples
 
 - `gulp` via `$.gulp`
-- `gulp-plumber` via `$.plumber` 
+- `gulp-plumber` via `$.plumber`
 - `gulp-inline-css` via `$.inlineCss`
 - `grunt` via `$.grunt`
 - `grunt-shell` via `$.shell`
