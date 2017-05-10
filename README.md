@@ -112,6 +112,22 @@ gulp = {}
 }
 ```
 
+#### 7. toRoot
+
+You can import all functions of module into root object.
+
+```js
+const options = {
+	only: ['request'],
+	toRoot: ['request']
+}
+
+const $ = require('auto-require')(options)
+
+// $.get, $.post, $.head (all function from request). But not $.request
+```
+
+
 ## What it does?
 
 It takes all modules in your `node_modules` folder by default using data from `package.json` and exports it as one module.
