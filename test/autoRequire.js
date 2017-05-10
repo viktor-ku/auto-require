@@ -11,5 +11,6 @@ t.test('autoRequire', t => {
   t.ok(collection.eslint)
   t.deepEqual(collection.eslint, global.eslint)
   t.ok(Object.keys(collection).length)
+  t.throws(() => eslint = {})
   t.end()
 })
