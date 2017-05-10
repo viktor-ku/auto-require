@@ -112,6 +112,19 @@ gulp = {}
 }
 ```
 
+#### 6. As
+
+You can rename module before import.
+
+```js
+const options = {
+	only: ['gulp', 'gulp-notify'],
+  as: {gulp: 'g', 'gulp-notify': 'gn'}
+  
+// You can access gulp and gulp-notify as $.g and $.gn
+const $ = require('auto-require')(options)
+```
+
 #### 7. toRoot
 
 You can import all functions of module into root object.
@@ -122,11 +135,9 @@ const options = {
 	toRoot: ['request']
 }
 
-const $ = require('auto-require')(options)
-
 // $.get, $.post, $.head (all function from request). But not $.request
+const $ = require('auto-require')(options)
 ```
-
 
 ## What it does?
 
