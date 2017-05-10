@@ -12,9 +12,23 @@ module.exports = function autoRequire (options) {
   const packageNames = makePackageNames(map.packages)
   const modules = requireModules(map.fullPaths)
   const collection = zipObject(packageNames, modules)
+  if (options.toRoot) {
+    options.toRoot.map(module => {
+      Object.keys(collection[module]).map(key => {
+        collection[key] = collection[module][key]
+      })
+      
+      delete collection[module]
+    })
+  }
   if (globaly) {
-    Object.keys(collection).forEach(x => {
-      global[x] = collection[x]
+    Object.keys(collection).forEach(name => {
+      Object.defineProperty(global, name, {
+        set: () => {
+          throw new Error(`${name} is already defined`)
+        },
+        get: () => collection[name],
+      })
     })
   }
   return collection
