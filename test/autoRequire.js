@@ -12,8 +12,6 @@ t.test('autoRequire', t => {
   t.deepEqual(collection.eslint, global.eslint)
   t.ok(Object.keys(collection).length)
   
-  
-  
   const collection2 = autoRequire({
     toRoot: ['eslint']
   })
@@ -22,13 +20,15 @@ t.test('autoRequire', t => {
   t.ok(collection2.lodashCamelcase)
   t.ok(collection2.lodashZipobject)
   
-  t.ok(! collection2.eslint)
+  t.ok(!collection2.eslint)
   t.ok(collection2.linter)
   t.ok(collection2.CLIEngine)
   t.ok(collection2.RuleTester)
   t.ok(collection2.SourceCode)
   
   t.ok(Object.keys(collection2).length)
+  
+  t.throws(() => eslint = {})
   
   t.end()
 })
