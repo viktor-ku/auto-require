@@ -107,6 +107,22 @@ require('auto-require')(options)
 // gulp and notify avaliable globaly (only)
 ```
 
+#### 6. As
+
+You can rename module before import.
+
+```js
+const options = {
+	only: ['gulp', 'gulp-notify'],
+  as: {gulp: 'g', 'gulp-notify': 'gn'}
+}
+
+const $ = require('auto-require')(options)
+
+// You can access gulp and gulp-notify as $.g and $.gn
+```
+
+
 ## What it does?
 
 It takes all modules in your `node_modules` folder by default using data from `package.json` and exports it as one module.
