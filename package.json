@@ -4,31 +4,37 @@
   "description": "No need to require any packages now",
   "main": "index.js",
   "scripts": {
-    "test": "clear && tap test/*",
-    "tap": "clear && tap",
-    "preversion": "npm test",
-    "postversion": "git push & git push --tags & npm publish"
+    "test": "tap test/*",
+    "tap": "tap"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ViktorKonsta/auto-require.git"
+    "url": "git+https://github.com/viktor-ku/auto-require.git"
   },
-  "author": "ViktorKonsta",
+  "author": "Viktor Kuroljov",
   "license": "MIT",
-  "homepage": "https://github.com/ViktorKonsta/auto-require#readme",
+  "homepage": "https://github.com/viktor-ku/auto-require#readme",
   "bugs": {
-    "url": "https://github.com/ViktorKonsta/auto-require/issues"
+    "url": "https://github.com/viktor-ku/auto-require/issues"
   },
-  "keywords": "auto, require, auto-require, fast, automaticaly, easy, automatic, loader, auto-loader, module-loader, module",
+  "keywords": [
+    "auto",
+    "require",
+    "auto-require",
+    "loader",
+    "module"
+  ],
   "dependencies": {
     "lodash.camelcase": "^4.3.0",
     "lodash.zipobject": "^4.1.3"
   },
   "devDependencies": {
-    "eslint": "^3.11.1",
-    "eslint-config-standard": "^6.2.1",
-    "eslint-plugin-promise": "^3.4.0",
-    "eslint-plugin-standard": "^2.0.1",
-    "tap": "^8.0.1"
+    "eslint": "^5.1.0",
+    "eslint-config-standard": "^11.0.0",
+    "eslint-plugin-import": "^2.13.0",
+    "eslint-plugin-node": "^7.0.1",
+    "eslint-plugin-promise": "^3.8.0",
+    "eslint-plugin-standard": "^3.1.0",
+    "tap": "^12.0.1"
   }
 }

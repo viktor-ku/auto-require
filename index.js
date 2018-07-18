@@ -17,7 +17,7 @@ module.exports = function autoRequire (options) {
       Object.keys(collection[module]).map(key => {
         collection[key] = collection[module][key]
       })
-      
+
       delete collection[module]
     })
   }
@@ -27,7 +27,7 @@ module.exports = function autoRequire (options) {
         set: () => {
           throw new Error(`${name} is already defined`)
         },
-        get: () => collection[name],
+        get: () => collection[name]
       })
     })
   }
